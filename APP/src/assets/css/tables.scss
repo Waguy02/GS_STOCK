@@ -1,0 +1,42 @@
+
+.mobile-label {
+  display: none;
+
+}
+
+
+
+
+
+@media(max-width: 600px) {
+
+.mobile-label {
+  width: 80px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+
+   .mat-header-row {
+     display: none;
+   }
+
+  .mat-row {
+     flex-direction: column;
+     align-items:center;
+    max-height: 150px;
+
+      margin:10px;
+    border-style:inset;
+    border-width: 0.8px;
+    border-radius:0.2em;
+   }
+
+
+  .mobile-hide {
+    display: none;
+
+  }
+
+
+}

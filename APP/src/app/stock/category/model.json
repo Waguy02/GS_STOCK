@@ -1,0 +1,48 @@
+{
+  "title": "Categories de produit",
+  "entity": "category",
+  "target": "stock",
+  "api": {
+    "root": "main_api",
+    "url": "stock/category"
+  },
+  "filter": [
+    "name","description","status"
+  ],
+  "fields": [
+    {
+      "name": "_id",
+      "label": "Id",
+      "isId": true,
+      "readonly": true,
+      "type": "string"
+    },
+    {
+      "name": "name",
+      "label":"nom",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "description",
+      "label":"Description",
+      "type": "string",
+      "required": true
+    },
+
+
+    {
+      "label":"Statut",
+      "name": "status",
+      "type": "boolean",
+      "control": "list",
+      "list_display": "dropdown",
+      "list_options": [
+        {"label":"Active","value":true},
+        {"label":"Inactive","value":false}
+      ]
+    }
+
+
+  ]
+}

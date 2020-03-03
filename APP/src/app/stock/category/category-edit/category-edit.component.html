@@ -1,0 +1,97 @@
+<ol class="breadcrumb float-right" *ngIf="category">
+  <li class="breadcrumb-item"><a routerLink="/">Accueil</a></li>
+  <li class="breadcrumb-item active" routerLink="/stock/categories">
+    Categories de produit
+  </li>
+  <li *ngIf="category._id"  class="breadcrumb-item active">
+    {{category._id}}
+  </li>
+
+  <li *ngIf="!category._id"  class="breadcrumb-item active">
+    Création d'un category
+  </li>
+</ol>
+<mat-expansion-panel style="overflow: auto " expanded=true class="card" *ngIf="category" fxLayout="column">
+  <mat-expansion-panel-header fxFlex="5" class="lead" fxLayout="column" fxLayout="center">
+
+
+      <mat-panel-title>
+        <p class="h4">
+          <span *ngIf="!category._id">Création d'un category</span>
+          <span *ngIf="category._id">category</span>
+
+
+        </p>
+      </mat-panel-title>
+
+      <mat-panel-description>
+
+        <p class="h4"> Main Informations </p>
+      </mat-panel-description>
+
+
+
+
+
+
+
+  </mat-expansion-panel-header>
+  <div class="content">
+    <div *ngIf="feedback" class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
+    <form  #editForm="ngForm" (ngSubmit)="save()">
+      
+      
+      
+      <div class="form-group">
+        <mat-form-field class="gs-mat-field" fxFlex="100">
+          
+          <input matInput class="form-control" placeholder="Id" name="Id"
+                 type="text"  [(ngModel)]="category._id"   readonly  >
+          
+        </mat-form-field>
+      </div>
+      
+      
+      
+      <div class="form-group">
+        <mat-form-field class="gs-mat-field" fxFlex="100">
+          
+          <input matInput class="form-control" placeholder="nom" name="Name"
+                 type="text"  [(ngModel)]="category.name"   >
+          
+        </mat-form-field>
+      </div>
+      
+      
+      
+      <div class="form-group">
+        <mat-form-field class="gs-mat-field" fxFlex="100">
+          
+          <input matInput class="form-control" placeholder="Description" name="Description"
+                 type="text"  [(ngModel)]="category.description"   >
+          
+        </mat-form-field>
+      </div>
+      
+      
+      
+      
+      
+      <div class="form-group">
+        <mat-form-field class="gs-mat-field" fxFlex="100">
+          <mat-label>Statut</mat-label>
+          <mat-select [(value)]="category.status">
+            
+            <mat-option [value]=true> Active</mat-option>
+            
+            <mat-option [value]=false> Inactive</mat-option>
+            
+          </mat-select>
+        </mat-form-field>
+      </div>
+      
+      <button type="submit" class="btn btn-primary" [disabled]="!editForm.form.valid">Enregistrer</button>
+      <button type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
+    </form>
+  </div>
+</mat-expansion-panel>
