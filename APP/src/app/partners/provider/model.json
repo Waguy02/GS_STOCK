@@ -1,0 +1,40 @@
+{
+  "title": "Fournisseurs",
+  "entity": "provider",
+  "target": "partners",
+  "api": {
+    "root": "main_api",
+    "url": "partners/provider"
+  },
+  "filter": [
+    "name","status"
+  ],
+  "fields": [
+    {
+      "name": "_id",
+      "label": "Id",
+      "isId": true,
+      "readonly": true,
+      "type": "string"
+    },
+    {
+      "name": "name",
+      "label":"nom",
+      "type": "string",
+      "required": true
+    },
+    {
+      "label":"Statut",
+      "name": "status",
+      "type": "boolean",
+      "control": "list",
+      "list_display": "dropdown",
+      "list_options": [
+        {"label":"Actif","value":true},
+        {"label":"Inactif","value":false}
+      ]
+    }
+
+
+  ]
+}

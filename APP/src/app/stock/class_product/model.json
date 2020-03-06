@@ -1,0 +1,78 @@
+{
+  "title": "Stock de produit",
+  "entity": "class_product",
+  "target": "stock",
+  "api": {
+    "root": "main_api",
+    "url": "stock/product_class"
+  },
+  "filter": [
+    "label","product"
+  ],
+  "fields": [
+    {
+      "name": "_id",
+      "label": "Id",
+      "isId": true,
+      "readonly": true,
+      "type": "string"
+    },
+
+
+    {"name": "product",
+      "label":"produit",
+      "type": "ref",
+      "type_ref": "product",
+      "dir_ref": "stock/product",
+      "required": true
+    },
+    {"name": "label",
+      "label": "Nom de la classe ",
+      "type": "string",
+      "required": true
+
+    },
+    {"name":"unit_price",
+      "label": "Prix unitaire",
+      "type": "number",
+      "required": true
+
+    },
+
+
+    {
+
+    "name": "date_intrance",
+    "label": "Date d'arrivée",
+    "type": "date",
+    "required": true
+
+
+
+    },
+
+
+    {
+      "name": "quantity",
+      "label": "quantité",
+      "type": "number",
+      "required": true,
+    "readonly": true
+    },
+
+
+    {
+      "label":"Statut",
+      "name": "status",
+      "type": "boolean",
+      "control": "list",
+      "list_display": "dropdown",
+      "list_options": [
+        {"label":"Active","value":true},
+        {"label":"Inactive","value":false}
+      ]
+    }
+
+
+  ]
+}

@@ -26,6 +26,15 @@ app.use(cors());
 
 app.use('/stock/category',require('./routes/stock/category'));
 app.use('/stock/product',require('./routes/stock/product'));
+app.use('/stock/product_class',require('./routes/stock/product_class'))
+
+app.use('/partners/customer',require('./routes/partners/customers'));
+app.use('/partners/provider',require('./routes/partners/providers'));
+
+
+
+app.use('/stock_operations/product_command',require('./routes/stock_operations/product_command'));
+app.use('/stock_operations/product_command_unit',require('./routes/stock_operations/product_command_unit'));
   const port = argv.port||5000;
 
   const host= argv.host||'127.0.0.1';

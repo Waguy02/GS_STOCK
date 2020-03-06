@@ -1,5 +1,5 @@
 <a mat-card [routerLink]="target" router fxLayout="row" class="nav-item card white-semi-transparent" fxLayoutAlign="center"
-  routerLinkActive="active-nav-item">
+  routerLinkActive="active-nav-item" fxFlex="100">
   <li *ngIf="childrenItems.length==1;else dropdown"  (click)="sidenav_close()"  fxLayout="row" fxFlex="80" fxLayoutAlign="flex-start">
 
 
@@ -14,7 +14,7 @@
 
 <ng-template #dropdown>
 
-  <mat-accordion >
+  <mat-accordion style="width: 100%" >
     <mat-expansion-panel >
 
       <mat-expansion-panel-header class="nav-item  white-semi-transparent" fxLayout="row" fxLayoutAlign="flex-center">

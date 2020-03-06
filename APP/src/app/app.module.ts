@@ -28,6 +28,9 @@ import {ConfigurationService} from './configuration/configuration.service';
 import {MatDialogModule} from '@angular/material/dialog';
 import {CategoryModule} from './stock/category/category.module';
 import {ProductModule} from './stock/product/product.module';
+import {CustomerModule} from "./partners/customer/customer.module";
+import {ProviderModule} from "./partners/provider/provider.module";
+import {ClassProductModule} from "./stock/class_product/class-product.module";
 
 
 
@@ -42,6 +45,10 @@ import {ProductModule} from './stock/product/product.module';
     BrowserModule,
     CategoryModule,
     ProductModule,
+
+    CustomerModule,
+    ProviderModule,
+    ClassProductModule,
 
 
     BrowserAnimationsModule,

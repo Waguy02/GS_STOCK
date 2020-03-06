@@ -1,5 +1,5 @@
 
 
-{"api_roots": {"main_api":"http://192.168.43.231:5500"}, "main": {"app_name": "Easy STOCK"}}
+{"api_roots": {"main_api":"http://localhost:5000"}, "main": {"app_name": "ODICAM"}}
 
 

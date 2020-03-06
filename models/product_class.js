@@ -9,10 +9,14 @@ const ProductClassSchema = new Schema({
         type:'string',
         required:true
     },
+label:{
+    type:'string',
+
+},
 
     quantity:{
         type:'number',
-        required:true,
+        required:false,
 
     },
     product:{
@@ -24,6 +28,8 @@ const ProductClassSchema = new Schema({
     },
 
 
+date_intance:{
+    type:"date"},
 
 
 
