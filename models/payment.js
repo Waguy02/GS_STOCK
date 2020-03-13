@@ -16,12 +16,31 @@ const PaymentSchema = new Schema({
 
     },
 
-    product_command:{
 
-        type:Schema.Types.objectId,
+    product_command:{
+        type:Schema.Types.ObjectId,
         ref:'ProductCommand',
         required:false,
     },
+
+
+
+    sale:{
+        type:Schema.Types.ObjectId,
+        ref:'Sale',
+        required:false,
+    },
+
+
+
+
+
+    manager:{
+        type:Schema.Types.ObjectId,
+        ref:'Manager'
+
+    },
+
 
 
 

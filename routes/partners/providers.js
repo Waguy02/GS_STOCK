@@ -12,7 +12,10 @@ const Provider = require('../../models/provider');
 // @desc    Get All provider
 // @access  Public
 router.get('/', (req, res) => {
-    Provider.find()
+    Provider.find(
+        {"name":{"$regex":req.query.name,"$options":"i"}}
+
+        )
         .then(data => res.json((data)))
         .catch(err => console.log(err));
 });

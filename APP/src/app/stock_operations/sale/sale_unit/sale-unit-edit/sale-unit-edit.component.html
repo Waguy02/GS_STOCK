@@ -1,0 +1,105 @@
+<div style="overflow: auto " class="bg-transparent" *ngIf="sale_unit" fxLayout="column">
+
+  <div *ngIf="feedback" class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
+  <form  #editForm="ngForm"  fxLayout="row" fxLayoutAlign="space-between" (ngSubmit)="add()">
+
+
+
+
+
+    <div class="form-group" fxFlex="40">
+      <mat-form-field  class="gs-mat-field" fxFlex="100">
+        <input matInput class="form-control" placeholder="Stock de Produit" name="Product"
+               [matAutocomplete]="autoProduct" [formControl]="productInput" (blur)="checkProduct()">
+      </mat-form-field>
+      <mat-autocomplete #autoProduct="matAutocomplete" [displayWith]="displayProduct"
+                        (optionSelected)="productClick($event)">
+        <mat-option *ngIf="isLoadingProduct" class="is-loading">
+          <mat-spinner diameter="50"></mat-spinner>
+        </mat-option>
+         <ng-container *ngIf="!isLoadingProduct">
+          <mat-option *ngFor="let class_product of filteredClassProductList;" [value]="class_product" class="card-option" style="height:auto">
+            <div fxLayout="column"  fxLayoutAlign="center" >
+              <mat-card-header  fxFlex="30" fxLayout="column" fxLayoutAlign="space-between" >
+
+
+
+
+                <p class="lead h6">{{class_product.product.name}}</p>
+
+
+                <div>
+                  <mat-label>Arrivé le : </mat-label>
+                  <span class="h6">{{class_product.date_intrance|date}}</span>
+                </div>
+
+
+
+              </mat-card-header>
+              <mat-card-content fxFlex="70" fxLayout="row" fxLayoutAlign="space-between">
+
+
+
+                  <div>
+                    <mat-label>
+                      Quantité présente :
+                    </mat-label>
+                    <input matInput readonly value="{{class_product.quantity}}" required>
+                  </div>
+                  <div>
+
+                    <input matInput readonly value="{{class_product.unit_price |currency:'FCFA'}}" required>
+
+                  </div>
+
+
+
+
+
+              </mat-card-content>
+
+            </div>
+
+
+
+
+          </mat-option>
+        </ng-container>
+      </mat-autocomplete>
+    </div>
+
+
+
+
+    <div class="form-group">
+      <mat-form-field class="gs-mat-field" fxFlex="100">
+
+        <input matInput class="form-control" placeholder="Quantité" name="Quantity" [formControl]="quantityInput"
+               type="number" min="1" [(ngModel)]="sale_unit.quantity "    required >
+
+      </mat-form-field>
+    </div>
+
+
+
+    <div class="form-group">
+      <mat-form-field class="gs-mat-field" fxFlex="100">
+
+        <input matInput class="form-control" placeholder="Prix de vente" name="UnitPrice"
+               type="number"  [(ngModel)]="sale_unit.unit_price"   required >
+
+      </mat-form-field>
+    </div>
+
+
+
+
+
+
+
+
+    <button type="submit" fxFlex="10" style="height: 60%" class="btn btn-primary" [disabled]="!editForm.form.valid||!quantityInput.valid" >Ajouter</button>
+
+  </form>
+
+</div>

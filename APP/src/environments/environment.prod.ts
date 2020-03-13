@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-main_api: 'http://192.168.43.231:5500'
+main_api: 'http://192.168.43.231:5500',
+  encrypt_key:'aabbccddee1122334455'
 };

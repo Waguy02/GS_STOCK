@@ -11,11 +11,13 @@ const ProductCommandUnit = require('../../models/product_command_unit');
 // @route   GET api/product_command_unit
 // @desc    Get All product_command_unit
 // @access  Public
-router.get('/', (req, res) => {
-    ProductCommandUnit.find()
-        .populate('product_command')
+router.get('/:command', (req, res) => {
+
+    ProductCommandUnit.find({product_command:req.params.command})
+
         .populate('product_class')
-        .then(data => res.json((data)))
+        .deepPopulate('product_class.product')
+        .then(data =>{ res.json((data))})
         .catch(err => console.log(err));
 });
 

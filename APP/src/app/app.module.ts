@@ -31,6 +31,18 @@ import {ProductModule} from './stock/product/product.module';
 import {CustomerModule} from "./partners/customer/customer.module";
 import {ProviderModule} from "./partners/provider/provider.module";
 import {ClassProductModule} from "./stock/class_product/class-product.module";
+import {ManagerModule} from "./params/manager/manager.module";
+import {ProductCommandModule} from "./stock_operations/product_command/product-command.module";
+import {ManagerService} from "./params/manager/manager.service";
+import { AuthComponent } from './params/manager/auth/auth.component';
+import {environment} from "../environments/environment";
+import {SaleModule} from "./stock_operations/sale/sale.module";
+
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+registerLocaleData(localeFr, 'fr');
+
+;
 
 
 
@@ -43,6 +55,8 @@ import {ClassProductModule} from "./stock/class_product/class-product.module";
 
 
     BrowserModule,
+    ProductCommandModule,
+    SaleModule,
     CategoryModule,
     ProductModule,
 
@@ -50,7 +64,7 @@ import {ClassProductModule} from "./stock/class_product/class-product.module";
     ProviderModule,
     ClassProductModule,
 
-
+ManagerModule,
     BrowserAnimationsModule,
     MatSidenavModule,
     MatToolbarModule,
@@ -64,6 +78,7 @@ import {ClassProductModule} from "./stock/class_product/class-product.module";
     HttpClientModule,
     AppRoutingModule,
     GsNavModule,
+
     TestModule,
 
 
@@ -72,7 +87,7 @@ import {ClassProductModule} from "./stock/class_product/class-product.module";
   ],
   providers: [{
     provide: APP_INITIALIZER,
-    useFactory: (configService: ConfigurationService) => () => configService.loadConfigurations(),
+    useFactory: (configService: ConfigurationService) => () => {configService.loadConfigurations();},
     deps: [ConfigurationService],
     multi: true
   }],

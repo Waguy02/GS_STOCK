@@ -12,7 +12,12 @@ const Product = require('../../models/product');
 // @desc    Get All product
 // @access  Public
 router.get('/', (req, res) => {
-    Product.find()
+    Product.find(
+        {"name":{"$regex":req.query.name,"$options":"i"},
+    "description":{"$regex":req.query.description    ,"$options":"i"}
+
+        }
+        )
         .populate('category')
         .sort({ date_semis: 1 })
         .then(data => res.json((data)))

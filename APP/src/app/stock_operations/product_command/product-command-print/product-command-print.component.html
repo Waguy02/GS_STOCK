@@ -1,0 +1,29 @@
+<mat-card class="bg-primary base-card"  *ngIf="command" fxLayout="column" fxLayoutAlign="space-around" style="width: 100%;height: 100%">
+  <div class="white-transparent" fxFlex="20" fxLayout="column" fxLayoutAlign="flex-start">
+
+    <div fxLayout="row" fxLayoutAlign="center">
+      <p class="h4" lead>ODICAM </p>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between">
+    <p class="h5">Commande {{command._id}} </p>
+
+     <p class="h6">Date de Livraison: {{command.date_finalizing|date}} </p>
+    </div>
+  </div>
+  <mat-card class="white-transparent" fxFlex="60" fxLayout="column" fxLayoutAlign="flex-start" >
+
+    <app-product-command-unit [command]="command" style="height: 100%"></app-product-command-unit>
+  </mat-card>
+
+
+  <mat-card class="white-transparent" fxFlex="10" fxLayout="row" fxLayoutAlign="space-between">
+
+    <button mat-button class="btn btn-primary" (click)="print()"><mat-icon class="ti-printer"> </mat-icon> Imprimer </button>
+    <button  class="btn btn-danger" (click)="close()"><mat-icon class="ti-close"> </mat-icon> Fermer </button>
+
+  </mat-card>
+
+
+
+</mat-card>

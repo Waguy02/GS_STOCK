@@ -1,0 +1,86 @@
+{
+  "title": "Ventes de produits",
+  "entity": "sale",
+  "target": "stock_operations",
+  "api": {
+    "root": "main_api",
+    "url": "stock_operations/sale"
+  },
+  "filter": [
+    "","date_finalizing","status"
+  ],
+  "fields": [
+    {
+      "name": "_id",
+      "label": "Id",
+      "isId": true,
+      "readonly": true,
+      "type": "string"
+    },
+    {
+      "name": "customer",
+      "label": "Client",
+      "type": "ref",
+      "type_ref": "customer",
+      "dir_ref": "partners/customer",
+      "required": true
+    },
+    {
+      "name": "manager",
+      "label": "Utilisateur",
+      "type": "ref",
+      "type_ref": "manager",
+      "dir_ref": "params/manager",
+      "required": true
+} ,
+
+    {
+      "name": "amount",
+      "label": "Montant",
+      "type": "number"
+
+    },
+
+
+
+
+    {
+
+      "name": "date_finalizing",
+      "label": "Date de livraison",
+      "type": "date",
+      "required": true
+
+
+
+    },
+
+    {
+      "label":"Etat",
+      "name": "status",
+      "type": "boolean",
+      "control": "list",
+      "list_display": "dropdown",
+      "list_options": [
+        {"label":"Livrée","value":true},
+        {"label":"Non livrée","value":false},
+
+      ]
+    },
+
+    {
+      "label":"Etat de paiement",
+      "name": "payment_status",
+      "type": "boolean",
+      "control": "list",
+      "list_display": "dropdown",
+      "list_options": [
+        {"label":"Réglée","value":true},
+        {"label":"Non Réglée","value":false}
+
+      ]
+    }
+
+
+  ]
+}

@@ -13,6 +13,7 @@ function createWindow () {
     }
   })
 
+  mainWindow.setMenu(null);
   mainWindow.loadURL(
     url.format({
       pathname: path.join(__dirname, `/www/index.html`),

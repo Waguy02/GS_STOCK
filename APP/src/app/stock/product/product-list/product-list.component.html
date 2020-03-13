@@ -66,7 +66,7 @@
 
         <mat-card  class="white-transparent">
         <mat-card-header class="white-transparent" fxLayout="row" fxLayoutAlign="space-between">
-            <p fxFlex class="bold">Prix de nominal</p>
+            <p fxFlex class="bold">Prix de base</p>
 
           <button style="border:none;background: transparent"  (click)="unit_priceFilter.reset()" fxFlex>
           <i class="ti-reload"></i>
@@ -163,9 +163,9 @@
     </ng-container>
 
     <ng-container matColumnDef="unit_price">
-      <mat-header-cell *matHeaderCellDef mat-sort-header >Prix de nominal</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header >Prix de base</mat-header-cell>
       <mat-cell *matCellDef="let item" class="mobile-hide">
-         <span class="mobile-label">Prix de nominal : </span>
+         <span class="mobile-label">Prix de base : </span>
 {{item.unit_price}}
       </mat-cell>
     </ng-container>

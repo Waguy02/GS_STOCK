@@ -5,9 +5,13 @@ const Schema = mongoose.Schema;
 const ManagerSchema = new Schema({
     name:{
         type:"string",
-        required:"string"
+        required:true
     }
     ,
+        password:{
+                type:"string",
+            required:true
+            },
     status:{
         type:'boolean',
         required:false,
@@ -16,4 +20,4 @@ const ManagerSchema = new Schema({
 
 });
 
-module.exports =  mongoose.model('Provider', ProviderSchema);
+module.exports =  mongoose.model('Manager', ManagerSchema);

@@ -12,7 +12,7 @@ const ProductClassSchema = new Schema({
 label:{
     type:'string',
 
-},
+    },
 
     quantity:{
         type:'number',
@@ -28,7 +28,7 @@ label:{
     },
 
 
-date_intance:{
+date_intrance:{
     type:"date"},
 
 

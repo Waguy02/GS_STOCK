@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
@@ -21,7 +22,7 @@ constructor(
     private route: ActivatedRoute,
     private router: Router,
     private categoryService: CategoryService,
-    
+
     )
     {
   }
@@ -41,7 +42,7 @@ ngOnInit() {
           this.feedback = {};
         },
         err => {
-          this.feedback = {type: 'warning', message: 'Erreur lors du chargement'};
+          this.feedback = {type: 'warning', message: 'Erreur lors du chargement '};
         }
       );
 
@@ -56,7 +57,7 @@ save() {
         }, 1000);
       },
       err => {
-        this.feedback = {type: 'warning', message: "Erreur lors de l'enregistrement"};
+        this.feedback = {type: 'warning', message: "Erreur lors de l'enregistrement : "+err.message};
       }
     );
   }

@@ -1,0 +1,176 @@
+<ol class="breadcrumb float-right" *ngIf="product_command">
+  <li class="breadcrumb-item"><a routerLink="/">Accueil</a></li>
+  <li class="breadcrumb-item active" routerLink="/stock_operations/productCommands">
+    Commandes de produits
+  </li>
+  <li *ngIf="product_command._id"  class="breadcrumb-item active">
+    {{product_command._id}}
+  </li>
+  <li *ngIf="!product_command._id"  class="breadcrumb-item active">
+    Nouvelle Commande.
+  </li>
+</ol>
+
+<div fxLayout="column" fxLayoutGap="40px" fxLayoutAlign="flex-start">
+
+
+
+
+
+
+  <mat-expansion-panel style="overflow: auto " expanded=true class="card" *ngIf="product_command" fxLayout="column">
+    <mat-expansion-panel-header fxFlex="5" class="lead" fxLayout="column" fxLayout="center">
+      <mat-panel-title>
+        <p class="h4">
+          <span *ngIf="!product_command._id">Nouvelle commande</span>
+          <span *ngIf="product_command._id">Commande de produit  </span>
+
+
+
+
+        </p>
+      </mat-panel-title>
+      <mat-panel-description>
+        <p class="h4">  </p>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <span *ngIf="product_command._id"><button mat-button class="btn btn-secondary" (click)="visualize()"><mat-icon class="ti-printer"> </mat-icon> Visualiser le bon de commande </button> </span>
+    <div class="content">
+      <div *ngIf="feedback" class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
+      <div class="card" fxLayoutGap="10px" fxLayout="column">
+        <mat-expansion-panel style="overflow: auto;padding:1px " expanded=true class="card" *ngIf="product_command" fxLayout="column">
+          <mat-expansion-panel-header fxFlex="5" class="lead" fxLayout="column" fxLayout="center">
+            <mat-panel-title fxLayout="row" fxLayoutAlign="space-between">
+              <p class="h6">
+                Produits de la commande
+              </p>
+
+
+            </mat-panel-title>
+            <mat-panel-description>
+
+            </mat-panel-description>
+
+          </mat-expansion-panel-header>
+          <div class="content"    *ngIf="product_command.command_units_datasource" style="padding:1px">
+
+            <app-product-command-unit-edit *ngIf="!product_command._id"  [product_command]="product_command" ></app-product-command-unit-edit>
+            <app-product-command-unit   [command]="product_command" ></app-product-command-unit>
+
+          </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel style="overflow: auto;padding:1px " expanded=true class="card" *ngIf="product_command" fxLayout="column">
+          <mat-expansion-panel-header fxFlex="5" class="lead" fxLayout="column" fxLayout="center">
+            <mat-panel-title>
+              <p class="h6">
+                Paiements
+              </p>
+            </mat-panel-title>
+            <mat-panel-description>
+
+            </mat-panel-description>
+
+          </mat-expansion-panel-header>
+          <div class="content"    *ngIf="product_command.command_payments" style="padding:1px">
+
+            <app-payment-edit   [product_command]="product_command"  *ngIf="product_command._id&&!product_command.payment_status"></app-payment-edit>
+            <app-payment   [command]="product_command" ></app-payment>
+
+          </div>
+        </mat-expansion-panel>
+
+
+
+
+
+
+      </div>
+
+      <form  #editForm="ngForm" (ngSubmit)="save()">
+
+
+        <div class="form-group">
+          <mat-form-field class="gs-mat-field" fxFlex="100" >
+
+
+            <mat-label>Etat de la commande</mat-label>
+            <input matInput readonly [value]='product_command.status?"Livrée":"Non livrée"'>
+
+          </mat-form-field>
+        </div>
+
+
+        <div class="form-group">
+          <mat-form-field  class="gs-mat-field" fxFlex="100">
+            <input matInput class="form-control" placeholder="Fournisseur" name="Provider" required
+                   [matAutocomplete]="autoProvider" [formControl]="providerInput" (blur)="checkProvider()" [readonly]="product_command._id">
+          </mat-form-field>
+          <mat-autocomplete #autoProvider="matAutocomplete" [displayWith]="displayProvider"
+                            (optionSelected)="providerClick($event)">
+            <mat-option *ngIf="isLoadingProvider" class="is-loading">
+              <mat-spinner diameter="50"></mat-spinner>
+            </mat-option>
+            <ng-container *ngIf="!isLoadingProvider">
+              <mat-option *ngFor="let provider of filteredProviderList" [value]="provider">
+                <span>{{provider.name}}</span>
+              </mat-option>
+            </ng-container>
+          </mat-autocomplete>
+        </div>
+
+
+
+
+
+
+        <div class="form-group">
+          <mat-form-field class="gs-mat-field" fxFlex="100">
+
+            <input matInput [matDatepicker]="datepicker" placeholder="Date de livraison" [(ngModel)]="product_command.date_finalizing" name="DateFinalizing"    required  [readonly]="product_command._id"  >
+            <mat-datepicker-toggle matSuffix [for]="datepicker"  *ngIf="!product_command._id" ></mat-datepicker-toggle>
+            <mat-datepicker touchUi="true" #datepicker></mat-datepicker>
+
+          </mat-form-field>
+        </div>
+
+
+
+
+
+
+
+
+
+
+        <button type="submit" class="btn btn-primary"  *ngIf="!product_command._id"  [disabled]="!editForm.form.valid">Effectuer la commande</button>
+
+        <button  class="btn btn-primary"  *ngIf="product_command._id&&!product_command.status" (click)="makeNow()" >Effectuer la livraison maintenant</button>
+        <button type="button" class="btn btn-secondary" (click)="cancel()">Retour</button>
+      </form>
+    </div>
+  </mat-expansion-panel>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

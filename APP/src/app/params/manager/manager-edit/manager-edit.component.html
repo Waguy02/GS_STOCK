@@ -1,0 +1,70 @@
+<ol class="breadcrumb float-right" *ngIf="manager">
+  <li class="breadcrumb-item"><a routerLink="/">Accueil</a></li>
+  <li class="breadcrumb-item active" routerLink="/params/managers">
+    Utilisateur
+  </li>
+  <li *ngIf="manager._id"  class="breadcrumb-item active">
+    {{manager._id}}
+  </li>
+<li *ngIf="!manager._id"  class="breadcrumb-item active">
+    Création d'un manager
+  </li>
+</ol>
+<mat-expansion-panel style="overflow: auto " expanded=true class="card" *ngIf="manager" fxLayout="column">
+  <mat-expansion-panel-header fxFlex="5" class="lead" fxLayout="column" fxLayout="center">
+<mat-panel-title>
+      <p class="h4">
+        <span *ngIf="!manager._id">Création d'un Utilisateur</span>
+        <span *ngIf="manager._id">Utilisateur</span>
+</p>
+    </mat-panel-title>
+<mat-panel-description>
+<p class="h4">  </p>
+    </mat-panel-description>
+</mat-expansion-panel-header>
+  <div class="content">
+    <div *ngIf="feedback" class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
+    <form  #editForm="ngForm" (ngSubmit)="save()">
+
+
+
+        <div class="form-group">
+          <mat-form-field class="gs-mat-field" fxFlex="100">
+
+      <input matInput class="form-control" placeholder="Id" name="Id"
+             type="text"  [(ngModel)]="manager._id"    readonly  >
+
+      </mat-form-field>
+  </div>
+
+
+
+        <div class="form-group">
+          <mat-form-field class="gs-mat-field" fxFlex="100">
+
+      <input matInput class="form-control" placeholder="nom" name="Name"
+             type="text"  [(ngModel)]="manager.name"    >
+
+      </mat-form-field>
+  </div>
+
+
+      <div class="form-group" *ngIf="!manager._id">
+        <mat-form-field class="gs-mat-field" fxFlex="100">
+
+          <input matInput class="form-control" placeholder="Mot de passe" name="password"
+                 type="password"  [(ngModel)]="manager.password"    >
+
+        </mat-form-field>
+      </div>
+
+
+
+
+
+
+  <button type="submit" class="btn btn-primary" [disabled]="!editForm.form.valid">Enregistrer</button>
+  <button type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
+  </form>
+  </div>
+</mat-expansion-panel>

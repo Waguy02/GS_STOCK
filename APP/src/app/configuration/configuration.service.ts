@@ -36,7 +36,7 @@ export class ConfigurationService {
   public  async loadConfigurations() {
     const data= await  this.loadConfigFiles();
     this.parseConfigurationApis(data);this.parseConfigurationMain(data);
-    console.log('find de lecture');
+    console.log('fin de lecture');
 
   }
 

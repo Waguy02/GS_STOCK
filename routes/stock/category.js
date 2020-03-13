@@ -57,10 +57,13 @@ router.post("/", (req, res) => {
         status:req.body.status
 
     });
+
+    console.log(data);
     data.save()
         .then(data => {
             res.json(data);
         }).catch(err => {
+            console.log(err);
         res.status(500).send({
             message: err.message || "Some error occurred while creating the Category."
         });

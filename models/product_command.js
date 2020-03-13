@@ -19,6 +19,9 @@ const ProductCommandSchema = new Schema({
         required:false,
         default:true
     },
+    amount:{
+      type:"number"
+    },
     provider: {
         type: Schema.Types.ObjectId,
         ref: 'Provider',
@@ -29,6 +32,11 @@ const ProductCommandSchema = new Schema({
         ref:'Manager',
         required:true
 
+
+    },
+    payment_status:{
+        type:'boolean',
+        default:'false'
 
     }
 

@@ -1,0 +1,77 @@
+
+/**
+Protect from Execution;Erase the value "true" in order to use this file
+**/
+      true;
+{
+  "title": "Commandes de produits",
+  "entity": "product-command",
+  "target": "stock_operations",
+  "api": {
+    "root": "main_api",
+    "url": "stock_operations/product_command"
+  },
+  "filter": [
+    "provider","date_finalizing","status"
+  ],
+  "fields": [
+    {
+      "name": "_id",
+      "label": "Id",
+      "isId": true,
+      "readonly": true,
+      "type": "string"
+    },
+    {
+      "name": "provider",
+      "label": "fournisseur",
+      "type": "ref",
+      "type_ref": "provider",
+      "dir_ref": "partners/provider",
+      "required": true
+    },
+    {
+      "name": "manager",
+      "label": "Utilisateur",
+      "type": "ref",
+      "type_ref": "manager",
+      "dir_ref": "params/manager",
+      "required": true
+
+
+
+
+
+
+    },
+
+
+
+
+    {
+
+      "name": "date_finalizing",
+      "label": "Date de livraison",
+      "type": "date",
+      "required": true
+
+
+
+    },
+
+    {
+      "label":"Etat",
+      "name": "status",
+      "type": "boolean",
+      "control": "list",
+      "list_display": "dropdown",
+      "list_options": [
+        {"label":"Livrée","value":true},
+        {"label":"Non livrée","value":false},
+
+      ]
+    }
+
+
+  ]
+}

@@ -12,7 +12,12 @@ const Customer = require('../../models/customer');
 // @desc    Get All customer
 // @access  Public
 router.get('/', (req, res) => {
-    Customer.find()
+
+Customer.find(
+        {name:{"$regex":req.query.name,"$options":"i"}}
+
+    )
+
         .then(data => res.json((data)))
         .catch(err => console.log(err));
 });

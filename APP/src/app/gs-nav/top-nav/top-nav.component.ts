@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {ParamComponent} from "../param/param.component";
+import {AuthService} from "../../params/manager/auth/auth.service";
 
 @Component({
   selector: 'top-nav',
@@ -11,7 +12,7 @@ import {ParamComponent} from "../param/param.component";
 export class TopNavComponent implements OnInit {
   private sidebarVisible = false;
 
-  constructor(public matDialog:MatDialog) {
+  constructor(public matDialog:MatDialog,public authService:AuthService) {
   }
    app_name:string=environment['app_name'];
 
@@ -45,4 +46,9 @@ export class TopNavComponent implements OnInit {
 
 
   }
+    public disconnect(){
+
+        if(confirm("Voulez-vous vraiment vous déconnecter? Toutes les opérations non achevées seront annulées.")){this.authService.logout();}
+
+    }
 }

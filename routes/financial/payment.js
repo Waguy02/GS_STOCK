@@ -3,13 +3,13 @@ const router = express.Router();
 
 // Item Model
 
-const Payment = require('../../models/payment');
+const Payment = require('../../models/manager');
 
 
 
 
-// @route   GET api/payment
-// @desc    Get All payment
+// @route   GET api/manager
+// @desc    Get All manager
 // @access  Public
 router.get('/', (req, res) => {
     Payment.find()
@@ -18,8 +18,8 @@ router.get('/', (req, res) => {
         .catch(err => console.log(err));
 });
 
-// @route   GET api/payment
-// @desc    Get one payment
+// @route   GET api/manager
+// @desc    Get one manager
 // @access  Public
 router.get('/:id', (req, res) => {
     Payment.findById(req.params.id)
@@ -40,13 +40,13 @@ router.get('/:id', (req, res) => {
                 });
             }
             return res.status(500).send({
-                message: "Error retrieving payment with id " + req.params.id
+                message: "Error retrieving manager with id " + req.params.id
             });
         });
 });
 
-//@route POST api/payment
-//@desc Create an payment
+//@route POST api/manager
+//@desc Create an manager
 //@access Public
 router.post("/", (req, res) => {
 
@@ -72,8 +72,8 @@ router.post("/", (req, res) => {
         )
 });
 
-//@route POST api/payments
-//@desc Create an payment
+//@route POST api/managers
+//@desc Create an manager
 //@access Public
 router.put("/:id", (req, res) => {
 
@@ -100,7 +100,7 @@ router.put("/:id", (req, res) => {
                 });
             }
             return res.status(500).send({
-                message: "Error updating payment with id " + req.params.id
+                message: "Error updating manager with id " + req.params.id
             });
 
 
@@ -109,8 +109,8 @@ router.put("/:id", (req, res) => {
         )
 });
 
-//@route DELETE api/payment:id
-//@desc Delete an payment
+//@route DELETE api/manager:id
+//@desc Delete an manager
 //@access Public
 router.delete("/:id", (req, res) => {
     Payment.findById(req.params.id)

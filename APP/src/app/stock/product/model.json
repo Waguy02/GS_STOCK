@@ -43,7 +43,7 @@
 
     {
       "name": "unit_price",
-      "label": "Prix de nominal",
+      "label": "Prix de base",
       "type": "number",
       "required": false,
 

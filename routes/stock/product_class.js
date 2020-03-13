@@ -12,9 +12,27 @@ const ProductClass = require('../../models/product_class');
 // @desc    Get All product_class
 // @access  Public
 router.get('/', (req, res) => {
+
+
+    var product_name=req.query.product;
+    var label=req.query.label;
+
     ProductClass.find()
         .populate('product')
-        .then(data => res.json((data)))
+        .then(data => {
+            var result=[];
+
+                for(var product_class of data){
+
+                    if((product_class.product.name&&product_class.product.name.toLowerCase().includes(product_name.toLowerCase()))
+                        ||(product_class.label&&product_class.label.toLowerCase().contains(label.toLowerCase()))) {
+                            //console.log(product_class);
+                        result.push(product_class)
+                    }
+
+                }
+
+            res.json((result))})
         .catch(err => console.log(err));
 });
 

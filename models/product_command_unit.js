@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 const ProductCommandUnitSchema = new Schema({
 
@@ -19,8 +20,7 @@ const ProductCommandUnitSchema = new Schema({
         ref:'ProductClass',
         required:true,
 
-
-    },
+        },
 
     product_command:{
         type:Schema.Types.ObjectId,
@@ -41,4 +41,5 @@ const ProductCommandUnitSchema = new Schema({
 
 });
 
+ProductCommandUnitSchema.plugin(deepPopulate, { whitelist: ['product_class', 'product_class.product']});
 module.exports =  mongoose.model('ProductCommandUnit', ProductCommandUnitSchema);

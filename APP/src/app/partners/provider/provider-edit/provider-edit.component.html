@@ -1,0 +1,75 @@
+<ol class="breadcrumb float-right" *ngIf="provider">
+  <li class="breadcrumb-item"><a routerLink="/">Accueil</a></li>
+  <li class="breadcrumb-item active" routerLink="/partners/providers">
+    Fournisseurs
+  </li>
+  <li *ngIf="provider._id"  class="breadcrumb-item active">
+    {{provider._id}}
+  </li>
+
+  <li *ngIf="!provider._id"  class="breadcrumb-item active">
+    Création d'un provider
+  </li>
+</ol>
+<mat-expansion-panel style="overflow: auto " expanded=true class="card" *ngIf="provider" fxLayout="column">
+  <mat-expansion-panel-header fxFlex="5" class="lead" fxLayout="column" fxLayout="center">
+
+
+      <mat-panel-title>
+        <p class="h4">
+          <span *ngIf="!provider._id">Création d'un provider</span>
+          <span *ngIf="provider._id">provider</span>
+
+
+        </p>
+      </mat-panel-title>
+
+      <mat-panel-description>
+
+        <p class="h4"> Main Informations </p>
+      </mat-panel-description>
+
+
+
+
+
+
+
+  </mat-expansion-panel-header>
+  <div class="content">
+    <div *ngIf="feedback" class="alert alert-{{feedback.type}}">{{ feedback.message }}</div>
+    <form  #editForm="ngForm" (ngSubmit)="save()">
+
+
+
+      <div class="form-group">
+        <mat-form-field class="gs-mat-field" fxFlex="100">
+
+          <input matInput class="form-control" placeholder="Id" name="Id"
+                 type="text"  [(ngModel)]="provider._id"   readonly  >
+
+        </mat-form-field>
+      </div>
+
+
+
+      <div class="form-group">
+        <mat-form-field class="gs-mat-field" fxFlex="100">
+
+          <input matInput class="form-control" placeholder="nom" name="Name"
+                 type="text"  [(ngModel)]="provider.name"   >
+
+        </mat-form-field>
+      </div>
+
+
+
+
+
+
+
+      <button type="submit" class="btn btn-primary" [disabled]="!editForm.form.valid">Enregistrer</button>
+      <button type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
+    </form>
+  </div>
+</mat-expansion-panel>

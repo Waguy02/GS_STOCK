@@ -19,6 +19,8 @@
     },
 
 
+
+
     {"name": "product",
       "label":"produit",
       "type": "ref",
@@ -26,6 +28,9 @@
       "dir_ref": "stock/product",
       "required": true
     },
+
+
+
     {"name": "label",
       "label": "Nom de la classe ",
       "type": "string",

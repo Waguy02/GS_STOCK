@@ -10,7 +10,7 @@ import { FormControl } from '@angular/forms';
   templateUrl: 'product-list.component.html'
 })
 export class ProductListComponent implements OnInit {
-filter = new ProductFilter();
+filter = new ProductFilter(null);
 selectedProduct: Product;
 @ViewChild(MatPaginator,null) paginator: MatPaginator;
 @ViewChild(MatSort,null) sort: MatSort;

@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const config = require('config');
+
 //const test = require('./test')
 const app = express();
 var cors = require('cors');
@@ -27,14 +27,17 @@ app.use(cors());
 app.use('/stock/category',require('./routes/stock/category'));
 app.use('/stock/product',require('./routes/stock/product'));
 app.use('/stock/product_class',require('./routes/stock/product_class'))
-
 app.use('/partners/customer',require('./routes/partners/customers'));
 app.use('/partners/provider',require('./routes/partners/providers'));
-
-
-
 app.use('/stock_operations/product_command',require('./routes/stock_operations/product_command'));
 app.use('/stock_operations/product_command_unit',require('./routes/stock_operations/product_command_unit'));
+app.use('/stock_operations/sale',require('./routes/stock_operations/sale'));
+app.use('/stock_operations/sale_unit',require('./routes/stock_operations/sale_unit'));
+
+
+
+app.use('/payment/payment',require('./routes/payment/payment'))
+app.use('/management/manager',require('./routes/management/manager'));
   const port = argv.port||5000;
 
   const host= argv.host||'127.0.0.1';
