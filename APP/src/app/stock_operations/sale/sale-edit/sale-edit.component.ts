@@ -93,7 +93,7 @@ export class SaleEditComponent implements OnInit {
           if(!sale._id) {
             this.sale.sale_units_datasource=new MatTableDataSource<SaleUnit>(new Array<SaleUnit>());
 
-
+            this.sale.date_finalizing=new Date();
           }
 
           else {
@@ -106,7 +106,7 @@ export class SaleEditComponent implements OnInit {
             this.customerInput.setValue(this.sale.customer);
             this.pcu_service.find(filter).subscribe(data=>{
               this.sale.sale_units_datasource=new MatTableDataSource<SaleUnit>(data);
-              Sale.calculateAmount(this.sale);
+              Sale.calculateAmounts(this.sale);
 
 
 
@@ -125,7 +125,7 @@ export class SaleEditComponent implements OnInit {
             this.paymentService.find(filter2).subscribe(data=>{
                 this.sale.sale_payments=new MatTableDataSource<Payment>(data);
 
-                Sale.calculateAmountPayement(this.sale);
+                Sale.calculateAmountsPayement(this.sale);
 
               }
 
@@ -146,6 +146,7 @@ export class SaleEditComponent implements OnInit {
 
   }
   save() {
+
 
     this.saleService.save(this.sale).subscribe(
       sale => {
@@ -175,8 +176,9 @@ export class SaleEditComponent implements OnInit {
           );
 
           setTimeout(() => {
+            this.router.navigate(['/stock_operations/sales/',sale._id]);
             this.feedback={}
-          }, 2000);
+          }, 500);
 
 
 
@@ -188,7 +190,7 @@ export class SaleEditComponent implements OnInit {
 
 
         setTimeout(() => {
-          this.router.navigate(['/stock_operations/sales']);
+      //    this.router.navigate(['/stock_operations/sales']);
         }, 1000);
       },
       err => {
@@ -242,10 +244,10 @@ export class SaleEditComponent implements OnInit {
     if(!confirm("Voulez vous vraiment effectuer la livraison de cette vente maintenant? "))return;
     this.saleService.save(this.sale).subscribe(
       sale => {
-        this.sale = sale;
+        //this.sale = sale;
         this.feedback = {type: 'success', message: 'Livraison effectuée avec succès '+this.sale.date_finalizing};
         setTimeout(() => {
-          this.router.navigate(['/stock_operations/sales']);
+          this.router.navigate(['/stock_operations/sales/',sale._id]);
         }, 1000);
       },
       err => {

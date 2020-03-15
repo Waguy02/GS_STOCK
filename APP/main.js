@@ -7,13 +7,14 @@ let mainWindow
 function createWindow () {
   mainWindow = new BrowserWindow({
     width: 1920 ,
-    height: 1800,
+    height: 1080,
     webPreferences: {
       nodeIntegration: true
     }
   })
 
   mainWindow.setMenu(null);
+
   mainWindow.loadURL(
     url.format({
       pathname: path.join(__dirname, `/www/index.html`),

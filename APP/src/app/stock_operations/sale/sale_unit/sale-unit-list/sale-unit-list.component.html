@@ -6,11 +6,15 @@
 
 
     <ng-container matColumnDef="product">
+      <div>
       <mat-header-cell *matHeaderCellDef mat-sort-header >Produit</mat-header-cell>
       <mat-cell *matCellDef="let item" class="mobile-hide">
         <span class="mobile-label">Produit : </span>
         {{item.product_class.product.name}}
+
       </mat-cell>
+
+      </div>
     </ng-container>
 
     <ng-container matColumnDef="quantity">
@@ -22,21 +26,52 @@
     </ng-container>
 
     <ng-container matColumnDef="unit_price">
-      <mat-header-cell *matHeaderCellDef mat-sort-header >Prix d'achat unitaire</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header >Prix de vente unitaire</mat-header-cell>
       <mat-cell *matCellDef="let item" class="mobile-hide">
-        <span class="mobile-label">Prix d'achat unitaire : </span>
-        {{item.unit_price|currency:"FCFA":"symbol":'4.0-0':'fr'}}
+        <span class="mobile-label">Prix de vente unitaire : </span>
+        {{item.unit_price|currency:"FCFA":"symbol":'1.0-0':'fr'}}
       </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="date" >
+      <div>
+      <mat-header-cell *matHeaderCellDef mat-sort-header >Date de la vente</mat-header-cell>
+      <mat-cell *matCellDef="let item" class="mobile-hide">
+        <span class="mobile-label">Date de la vente : </span>
+        {{item.sale.date_finalizing|date }}
+      </mat-cell>
+      </div>
     </ng-container>
 
 
     <ng-container matColumnDef="total">
-      <mat-header-cell *matHeaderCellDef mat-sort-header >Prix Total acheté</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header >Prix Total vendu</mat-header-cell>
       <mat-cell *matCellDef="let item" class="mobile-hide">
-        <span class="mobile-label">Prix total acheté : </span>
-        {{item.quantity*item.unit_price|currency:"FCFA":"symbol":'4.0-0':'fr'}}
+        <span class="mobile-label">Prix total vendu : </span>
+        {{item.quantity*item.unit_price|currency:"FCFA":"symbol":'1.0-0':'fr'}}
       </mat-cell>
     </ng-container>
+
+
+    <ng-container matColumnDef="customer">
+      <mat-header-cell *matHeaderCellDef mat-sort-header >Client</mat-header-cell>
+      <mat-cell *matCellDef="let item" class="mobile-hide">
+        <span class="mobile-label">Client </span>
+        {{item.sale.customer.name}}
+      </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="payment_status">
+      <mat-header-cell *matHeaderCellDef mat-sort-header >Etat de paiement</mat-header-cell>
+      <mat-cell *matCellDef="let item" class="mobile-hide">
+        <span class="mobile-label">Etat de paiement : </span>
+        {{item.sale.payment_status?"Réglée":"Non réglée"}}
+      </mat-cell>
+    </ng-container>
+
+
 
 
     <ng-container matColumnDef="actions" >
@@ -48,19 +83,74 @@
 
       </mat-cell>
     </ng-container>
+
+
+
+
+
+
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
   </mat-table>
 
 
-  <mat-card fxLayout="row" fxLayoutAlign="space-between" *ngIf="sale.sale_units_datasource.data.length>0">
+
+
+
+
+
+
+  <mat-card fxLayout="row" fxLayoutAlign="space-between" *ngIf="saleMode&& sale.sale_units_datasource.data.length>0">
     <mat-form-field fxFlex="25">
       <mat-label>
-        Montant de de la vente
+        Montant Total
       </mat-label>
-      <input matInput readonly [value]="sale.amount|currency:'FCFA'">
+      <input matInput readonly [value]="sale.amount|currency:'FCFA':'symbol':'1.0-0':'fr'">
     </mat-form-field>
 
   </mat-card>
+
+
+
+  <mat-card fxLayout="row" fxLayoutAlign="space-between" *ngIf="productMode&& sale.sale_units_datasource.data.length>0">
+    <mat-form-field fxFlex="25">
+      <mat-label>
+        Montant total des ventes
+      </mat-label>
+      <input matInput readonly [value]="sale.amount|currency:'FCFA':'symbol':'1.0-0':'fr'">
+    </mat-form-field>
+
+
+
+    <mat-form-field fxFlex="25">
+      <mat-label>
+        Montant perçu
+      </mat-label>
+      <input matInput readonly [value]="sale.paid_amount|currency:'FCFA':'symbol':'1.0-0':'fr'">
+    </mat-form-field>
+
+
+
+
+    <mat-form-field fxFlex="25">
+      <mat-label>
+        Reste à percevoir(Crédits) :
+      </mat-label>
+      <input matInput readonly [value]="sale.amount-sale.paid_amount|currency:'FCFA':'symbol':'1.0-0':'fr'">
+    </mat-form-field>
+
+
+
+
+
+  </mat-card>
+
+
+
+
+
+
+
+
 
 </div>

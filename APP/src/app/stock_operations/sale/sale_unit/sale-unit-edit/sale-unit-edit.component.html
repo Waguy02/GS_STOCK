@@ -44,11 +44,12 @@
                     <mat-label>
                       Quantité présente :
                     </mat-label>
-                    <input matInput readonly value="{{class_product.quantity}}" required>
+                    <span> {{class_product.quantity}}
+                      </span>
                   </div>
                   <div>
 
-                    <input matInput readonly value="{{class_product.unit_price |currency:'FCFA'}}" required>
+                    <span> {{class_product.unit_price |currency:"FCFA":"symbol":'1.0-0':'fr'}}</span>
 
                   </div>
 

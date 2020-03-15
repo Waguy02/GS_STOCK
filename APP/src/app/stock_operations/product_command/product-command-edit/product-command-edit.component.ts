@@ -105,7 +105,7 @@ export class ProductCommandEditComponent implements OnInit {
 
             this.pcu_service.find(filter).subscribe(data=>{
               this.product_command.command_units_datasource=new MatTableDataSource<ProductCommandUnit>(data);
-              ProductCommand.calculateAmount(this.product_command);
+              ProductCommand.calculateAmounts(this.product_command);
               this.providerInput.setValue(this.product_command.provider);
 
 
@@ -124,7 +124,7 @@ export class ProductCommandEditComponent implements OnInit {
             this.paymentService.find(filter2).subscribe(data=>{
                 this.product_command.command_payments=new MatTableDataSource<Payment>(data);
 
-                ProductCommand.calculateAmountPayement(this.product_command);
+                ProductCommand.calculateAmountsPayement(this.product_command);
 
                 }
 
@@ -145,7 +145,7 @@ export class ProductCommandEditComponent implements OnInit {
 
   }
   save() {
-    alert("Submitting");
+    if(this.product_command._id)return;
     this.product_commandService.save(this.product_command).subscribe(
       product_command => {
         this.product_command._id=product_command._id;

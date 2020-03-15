@@ -6,11 +6,13 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 const headers = new HttpHeaders().set('Accept', 'application/json');
-@Injectable()
+import {ConfigurationService} from "../../../configuration/configuration.service"; @Injectable()
 export class ProductCommandUnitService {
   product_command_unitList: ProductCommandUnit[] = [];
-  api = environment.main_api+'/stock_operations/product_command_unit';
-constructor(private http: HttpClient) {
+  api;
+constructor(private http: HttpClient,private configurationService:ConfigurationService) {
+  this.api = this.configurationService.environment.main_api+'/stock_operations/product_command_unit';
+  console.log(this.configurationService.environment)
 
   }
 findById(id: string): Observable<ProductCommandUnit> {
@@ -18,6 +20,13 @@ findById(id: string): Observable<ProductCommandUnit> {
     const params = { _id: id };
     return this.http.get<ProductCommandUnit>(url, {params, headers});
   }
+
+  findByProductClass(id: string): Observable<ProductCommandUnit> {
+    const url = `${this.api}/product_class/${id}`;
+    const params = { _id: id };
+    return this.http.get<ProductCommandUnit>(url, {params, headers});
+  }
+
 load(filter: ProductCommandUnitFilter): any {
 var p=this;
     return new Promise(function (resolve, reject) {
@@ -33,6 +42,8 @@ reject(err)
     });
   }
 find(filter: ProductCommandUnitFilter): Observable<ProductCommandUnit[]> {
+
+
 
 
 

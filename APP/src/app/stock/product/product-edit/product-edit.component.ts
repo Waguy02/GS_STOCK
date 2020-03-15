@@ -94,7 +94,7 @@ this.categoryInput.valueChanges
     .pipe(
       debounceTime(500),
       tap(() => {this.isLoadingCategory= true;}),
-      switchMap(value => this.categoryService.find(new CategoryFilter())
+      switchMap(value => this.categoryService.find(new CategoryFilter(value))
       .pipe(
         finalize(() => this.isLoadingCategory= false),
         )

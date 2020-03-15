@@ -41,5 +41,5 @@ const SaleUnitSchema = new Schema({
 
 });
 
-SaleUnitSchema.plugin(deepPopulate, { whitelist: ['product_class', 'product_class.product']});
+SaleUnitSchema.plugin(deepPopulate, { whitelist: ['product_class', 'product_class.product','sale','sale.customer']});
 module.exports =  mongoose.model('SaleUnit', SaleUnitSchema);

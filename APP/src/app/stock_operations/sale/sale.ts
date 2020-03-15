@@ -24,6 +24,7 @@ export class Sale {
   sale_payments:MatTableDataSource<Payment>=new MatTableDataSource<Payment>(new Array<Payment>());
 
   amount:number=0;
+  paid_amount:number=0;
   payment_status:boolean=false;
   status: boolean;
   get display() {
@@ -53,12 +54,17 @@ export class Sale {
 
   }
 
-  public static calculateAmount(sale) {
+  public static calculateAmounts(sale) {
 
 
     sale.amount = 0;
+    sale.paid_amount=0;
     for (var pcu of sale.sale_units_datasource.data) {
       sale.amount += pcu.quantity * pcu.unit_price;
+      if(pcu.sale&&pcu.sale.payment_status){
+        sale.paid_amount+=pcu.quantity * pcu.unit_price;
+      }
+
     }
 
 
@@ -66,7 +72,7 @@ export class Sale {
 
   public amount_payment:number=0;
 
-  public static calculateAmountPayement(sale) {
+  public static calculateAmountsPayement(sale) {
 
 
     sale.amount_payment = 0;
@@ -81,7 +87,7 @@ export class Sale {
     try {
       sale.sale_payments.data.push(payment);
 
-      Sale.calculateAmountPayement(sale);
+      Sale.calculateAmountsPayement(sale);
 
     }
     catch(err){

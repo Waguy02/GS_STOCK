@@ -12,7 +12,11 @@ const Category = require('../../models/category');
 // @desc    Get All category
 // @access  Public
 router.get('/', (req, res) => {
-    Category.find()
+    Category.find(
+
+        {"name":{"$regex":req.query.name,"$options":"i"},
+            "description":{"$regex":req.query.description    ,"$options":"i"}}
+    )
 
         .sort({ date_semis: 1 })
         .then(data => res.json((data)))
@@ -58,7 +62,7 @@ router.post("/", (req, res) => {
 
     });
 
-    console.log(data);
+
     data.save()
         .then(data => {
             res.json(data);

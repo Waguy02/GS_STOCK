@@ -15,10 +15,16 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import { FormControl } from '@angular/forms';
 const caster=require('angular-crud/gs-cast');
 import {debounceTime, finalize, switchMap, tap} from "rxjs/operators";
+import {StatisticalService} from "../../../tools/statistical.service";
+
+
+
+
 @Component({
   selector: 'app-sale',
   styleUrls:['./sale-list.scss'],
-  templateUrl: 'sale-list.component.html'
+  templateUrl: 'sale-list.component.html',
+  providers:[StatisticalService],
 })
 export class SaleListComponent implements OnInit {
   filter = new SaleFilter();
@@ -129,6 +135,7 @@ export class SaleListComponent implements OnInit {
   }
   public applyFilter(){
     this.dataSource.filter = JSON.stringify(this.filteredValues);
+    this.actualizeStat();
   }
   public  enableFiltering() {
 
@@ -170,7 +177,7 @@ export class SaleListComponent implements OnInit {
 
           date_finalizingCheck =!sale.date_finalizing?false:date0.getFullYear()==date1.getFullYear()&&
             date0.getMonth()==date1.getMonth()
-            &&date0.getDay()==date1.getDay();
+            &&date0.getDate()==date1.getDate();
         } else {
           if (parsedFilters.date_finalizing.min) {
             date_finalizingCheck = date_finalizingCheck && (parsedFilters.date_finalizing.min<= sale.date_finalizing);
@@ -184,7 +191,7 @@ export class SaleListComponent implements OnInit {
 
           date_initiatingCheck =!sale.date_initiating?false:date0.getFullYear()==date1.getFullYear()&&
             date0.getMonth()==date1.getMonth()
-            &&date0.getDay()==date1.getDay();
+            &&date0.getDate()==date1.getDate();
         } else {
           if (parsedFilters.date_initiating.min) {
             date_initiatingCheck = date_initiatingCheck && (parsedFilters.date_initiating.min<= sale.date_initiating);
@@ -219,8 +226,19 @@ export class SaleListComponent implements OnInit {
   }
   constructor(private saleService: SaleService,
               private customerService: CustomerService,
+              private statService:StatisticalService
   ) {
+
+
   }
+
+  public actualizeStat(){
+    this.statService.setDatas(this.dataSource.filteredData);
+    this.statService.computeSum('amount');
+  }
+
+
+
   ngOnInit() {
     this.initFilters();
 
@@ -235,7 +253,9 @@ export class SaleListComponent implements OnInit {
     this.saleService.load(this.filter).then((data)=>{
       setTimeout( ()=>{
           this.dataSource=new MatTableDataSource<Sale>(this.saleService.saleList);
+          this.actualizeStat();
           this.dataSource.sort = this.sort;
+
           this.dataSource.paginator = this.paginator;
           this.enableFiltering();
         },

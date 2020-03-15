@@ -51,41 +51,48 @@ router.post("/auth/",(req,res)=> {
 
         var name = req.body.name;
         var password = req.body.password;
-        var key=req.body.key;
-        Manager.find({name:name}).then(
-            data => {
-                var result= new Array();
+        var key = req.body.key;
+        Manager.find().then(data => {
 
-                for( var manager of data){
+            if (data.length == 0) {
+                //Création d'un utilisateur par défaut ;
+                let admin = new Manager();
+                admin.name = "admin";
+                admin.password = CryptoJS.AES.encrypt("admin", key).toString();
+                admin.save().then(data => res.json(data)).catch(err => res.status(500).json(err));
+            } else {
+                Manager.find({name: name}).then(
+                    data => {
+                        var result = new Array();
+
+                        for (var manager of data) {
 
 
-                    if(CryptoJS.AES.decrypt(manager.password,key).toString(CryptoJS.enc.Utf8)==CryptoJS.AES.decrypt(password,key).toString(CryptoJS.enc.Utf8) )
-                    {
-                        result.push(manager);
+                            if (CryptoJS.AES.decrypt(manager.password, key).toString(CryptoJS.enc.Utf8) == CryptoJS.AES.decrypt(password, key).toString(CryptoJS.enc.Utf8)) {
+                                result.push(manager);
+
+                            }
+                        }
+
+                        res.json(result);
+
+
+                    }).catch(err => {
+                        res.status(500).send({
+                            message: err.message || "Error while authenticating."
+                        });
+
 
                     }
-                }
-
-        res.json(result);
-
-
-            }).catch(err => {
-            res.status(500).send({
-                message: err.message || "Error while authenticating."
-            });
+                )
+            }
 
 
+        })
 
-        }
-    )
+    }
+)
 
-
-
-
-
-
-
-})
 
 
 router.post("/", (req, res) => {

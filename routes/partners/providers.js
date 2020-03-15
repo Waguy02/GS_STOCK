@@ -115,7 +115,14 @@ router.delete("/:id", (req, res) => {
                 .then(data => res.json(data))
                 .catch(err => res.json({ success: false }))
         )
-        .catch(err => res.status(404).json({ success: false }));
+        .catch(err => res.status(404).json({ success:false }));
 });
+
+router.get("/stats/count",(req,res)=>{
+    Provider.find().then(data=>res.json(data.length)).catch(err => res.status(404).json(err));
+
+})
+
+//router.get("/stats/mll")
 module.exports = router;
 

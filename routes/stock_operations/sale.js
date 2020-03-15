@@ -168,11 +168,13 @@ router.put("/:id", (req, res) => {
                                 //Modification de la quantité
 
                                     ProductClass.findById(pcu.product_class._id).then(pc => {
-                                    console.log("Etat d pc "+pc)
-                                    console.log("Etat de pcu :"+pcu);
+
 
                                         pc.quantity-=pcu.quantity;
-                                    if (pc.quantity < 0) throw new Error("Vente incorrecte : aboutit à une quantité négative ")
+
+                                    if (pc.quantity < 0||pc.status==false) {var error=new Error("Vente incorrecte : aboutit à une quantité négative ");res.status(500).json(error);session.abortTransacion();
+                                    }
+                                        if(pc.quantity==0)pc.status=false
                                     pc.save().then(data => {
                                     })
 
@@ -217,6 +219,44 @@ router.delete("/:id", (req, res) => {
         )
         .catch(err => res.status(404).json({ success: false }));
 });
+
+
+
+router.get("/stats/count_oncomming",(req,res)=>{
+   Sale.find({status:false}).
+    then(data=>{
+        var result={count:0,amount:0}
+        for( var command of data){
+            result.count++;
+            result.amount+=command.amount;
+        }
+
+        res.json(result)
+
+    }).catch(err =>res.status(404).res.json(err));
+
+
+})
+
+
+
+router.get("/stats/last",(req,res)=>{
+    Sale.find({status:true})
+        .sort({'date_finalizing':-1}).then(data=>
+    {
+        res.json(data[0])
+
+
+    }).catch(err =>res.status(404).res.json(err))
+
+})
+
+
+module.exports = router;
+
+
+
+
 
 
 module.exports = router;

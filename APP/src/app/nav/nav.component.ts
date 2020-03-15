@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import {ConfigurationService} from "../configuration/configuration.service";
 
 @Component({
   selector: 'app-nav',
@@ -8,11 +9,11 @@ import { environment } from 'src/environments/environment';
 })
 export class NavComponent implements OnInit {
   app_name:string;
-  constructor() {
+  constructor(private confService:ConfigurationService) {
 
 
 
-    this.app_name=environment['app_name'];
+    this.app_name=this.confService.environment['app_name'];
   }
   ngOnInit() {
 

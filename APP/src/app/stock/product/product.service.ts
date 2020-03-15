@@ -5,12 +5,16 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 const headers = new HttpHeaders().set('Accept', 'application/json');
-@Injectable()
+import {ConfigurationService} from "../../configuration/configuration.service"; @Injectable()
 export class ProductService {
   productList: Product[] = [];
-  api = environment.main_api+'/stock/product';
-constructor(private http: HttpClient) {
-  }
+
+  api='';
+constructor(private http: HttpClient,private configurationService:ConfigurationService) {
+  this.api = this.configurationService.environment.main_api+'/stock/product';
+  console.log(this.configurationService.environment)
+
+}
 findById(id: string): Observable<Product> {
     const url = `${this.api}/${id}`;
     const params = { _id: id };

@@ -5,11 +5,12 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 const headers = new HttpHeaders().set('Accept', 'application/json');
-@Injectable()
+import {ConfigurationService} from "../../configuration/configuration.service";  @Injectable ()
 export class PaymentService {
   paymentList: Payment[] = [];
-  api = environment.main_api+'/payment/payment';
-constructor(private http: HttpClient) {
+  api;
+constructor(private http: HttpClient,private configurationService:ConfigurationService) {
+  this.api = this.configurationService.environment.main_api+'/payment/payment';
   }
 findById(id: string): Observable<Payment> {
     const url = `${this.api}/${id}`;
@@ -55,7 +56,7 @@ find(filter: PaymentFilter): Observable<Payment[]> {
 return this.http.get<Payment[]>(url, {params, headers});
   }
 save(entity: Payment): Observable<Payment> {
-  console.log(entity);
+
     let params = new HttpParams();
     let url = '';
     if (entity._id) {

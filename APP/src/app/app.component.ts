@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {environment} from "../environments/environment";
 import {AuthService} from "./params/manager/auth/auth.service";
+import {ConfigurationService} from "./configuration/configuration.service";
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,8 @@ import {AuthService} from "./params/manager/auth/auth.service";
 })
 export class AppComponent {
   title = environment['app_name'];
-  constructor(private authService:AuthService) {
-this.authService.loadDefaultManager();
+  constructor(private authService:AuthService,private configurationService :ConfigurationService) {
+      this.authService.loadDefaultManager();
+
   }
 }

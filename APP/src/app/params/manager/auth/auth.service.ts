@@ -4,10 +4,11 @@ import {CanActivate, Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {ManagerService} from "../manager.service";
 
-
-@Injectable({
+@Injectable
+ ({
   providedIn: 'root'
 })
+
 export class AuthService implements CanActivate{
     canActivate(route: import("@angular/router").ActivatedRouteSnapshot, state: import("@angular/router").RouterStateSnapshot): boolean | import("@angular/router").UrlTree | import("rxjs").Observable<boolean | import("@angular/router").UrlTree> | Promise<boolean | import("@angular/router").UrlTree> {
         if(this.active_user){
@@ -19,7 +20,8 @@ export class AuthService implements CanActivate{
         }
     }
 
-  constructor(private router:Router,private managerService:ManagerService) { }
+  constructor(private router:Router,private managerService:ManagerService)
+  { }
 
   active_user:Manager;
 

@@ -48,6 +48,27 @@ router.get('/:id', (req, res) => {
         });
 });
 
+router.get('/product_class/:id',(req,res)=>{
+
+
+ProductCommandUnit.find({product_class:req.params.id})
+    .populate('product_command')
+    .then(data=>{res.json(data[0])})
+    .catch(err => {
+        if(err.kind === 'ObjectId') {
+            return res.status(404).send({
+                message: "ProductCommandUnit not found with id " + req.params.id
+            });
+        }
+        return res.status(500).send({
+            message: "Error retrieving product_command_unit with id " + req.params.id
+        });
+    });
+
+
+
+});
+
 //@route POST api/product_command_unit
 //@desc Create an product_command_unit
 //@access Public

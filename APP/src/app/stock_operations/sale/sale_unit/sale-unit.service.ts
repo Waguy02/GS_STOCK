@@ -7,11 +7,13 @@ import {environment} from 'src/environments/environment';
 
 
 const headers = new HttpHeaders().set('Accept', 'application/json');
-@Injectable()
+import {ConfigurationService} from "../../../configuration/configuration.service"; @Injectable()
 export class SaleUnitService {
   sale_unitList: SaleUnit[] = [];
-  api = environment.main_api + '/stock_operations/sale_unit';
-  constructor(private http: HttpClient) {
+  api;
+  constructor(private http: HttpClient,private configurationService:ConfigurationService) {
+    this.api = this.configurationService.environment.main_api + '/stock_operations/sale_unit';
+  console.log(this.configurationService.environment)
 
   }
   findById(id: string): Observable<SaleUnit> {
@@ -19,6 +21,23 @@ export class SaleUnitService {
     const params = {_id: id};
     return this.http.get<SaleUnit>(url, {params, headers});
   }
+
+
+
+
+  findByProductClass(id:string){
+
+
+    const url = `${this.api}/product_class/${id}`;
+    const params = {id: id};
+    return this.http.get<SaleUnit[]>(url, {params, headers});
+
+  }
+
+
+
+
+
   load(filter: SaleUnitFilter): any {
     var p = this;
     return new Promise(function (resolve, reject) {
@@ -39,10 +58,14 @@ export class SaleUnitService {
     return this.http.get<SaleUnit[]>(url, {params, headers})
       ;
   }
-  save(entity: SaleUnit): Observable<SaleUnit> {
+  save(su: SaleUnit): Observable<SaleUnit> {
+    var entity=new SaleUnit();
+    Object.assign(entity,su);
+    su.sale=null;
     let params = new HttpParams();
     let url = '';
     if (entity._id) {
+
       url = `${this.api}/${entity._id.toString()}`;
       params = new HttpParams().set('ID', entity._id.toString());
       return this.http.put<SaleUnit>(url, entity, {headers, params});

@@ -1,6 +1,6 @@
 
 <ol class="breadcrumb float-right">
-  <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+  <li class="breadcrumb-item"><a routerLink="/">Accueil</a></li>
   <li class="breadcrumb-item active">Produits disponibles</li>
 </ol>
 <div class="card">
@@ -10,17 +10,14 @@
     <a [routerLink]="['../products', 'new' ]" class="btn btn-default">Nouveau</a>
     <hr>
 
-      <mat-expansion-panel style="overflow: auto "class="white-transparent" style="padding :2px" expanded="true">
+      <mat-expansion-panel style="overflow: auto "class="white-transparent filters_box" style="padding :2px" expanded="false">
         <mat-expansion-panel-header class="header">
-
-        <p class="lead strong">
+<p class="lead strong">
         Filtres de recherches
         </p>
         <hr>
-
-        </mat-expansion-panel-header>
-
-<mat-card-content class="bg-transparent" fxLayout="row" fxLayoutGap="18px" fxLayoutAlign="flex-start" fxLayout.xs="column" fxLayoutAlign.xs="flex-start"  fxLayout="row">
+</mat-expansion-panel-header>
+<mat-card-content class="bg-transparent " fxLayout="row" fxLayoutGap="18px" fxLayoutAlign="flex-start" fxLayout.xs="column" fxLayoutAlign.xs="flex-start"  fxLayout="row">
 
         <mat-card  class="white-transparent">
         <mat-card-header class="white-transparent" fxLayout="row" fxLayoutAlign="space-between">

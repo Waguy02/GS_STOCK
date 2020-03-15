@@ -1,6 +1,6 @@
 
 <ol class="breadcrumb float-right">
-  <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+  <li class="breadcrumb-item"><a routerLink="/">Accueil</a></li>
   <li class="breadcrumb-item active">Clients</li>
 </ol>
 <div class="card">
@@ -10,18 +10,15 @@
     <a [routerLink]="['../customers', 'new' ]" class="btn btn-default">Nouveau</a>
     <hr>
 
-      <mat-expansion-panel style="overflow: auto "class="white-transparent" style="padding :2px" expanded="true">
+      <mat-expansion-panel style="overflow: auto "class="white-transparent filters_box" style="padding :2px" expanded="false">
         <mat-expansion-panel-header class="header">
-
-        <p class="lead strong">
+<p class="lead strong">
         Filtres de recherches
         </p>
         <hr>
+</mat-expansion-panel-header>
+<mat-card-content class="bg-transparent " fxLayout="row" fxLayoutGap="18px" fxLayoutAlign="flex-start" fxLayout.xs="column" fxLayoutAlign.xs="flex-start"  fxLayout="row">
 
-        </mat-expansion-panel-header>
-
-<mat-card-content class="bg-transparent" fxLayout="row" fxLayoutGap="18px" fxLayoutAlign="flex-start" fxLayout.xs="column" fxLayoutAlign.xs="flex-start"  fxLayout="row">
-      
         <mat-card  class="white-transparent">
         <mat-card-header class="white-transparent" fxLayout="row" fxLayoutAlign="space-between">
             <p fxFlex class="bold">nom</p>
@@ -32,7 +29,7 @@
 
         </mat-card-header>
       <mat-card-content class="white-transparent" fxLayout="row" fxLayoutAlign="space-between">
-    
+
 
 
 
@@ -42,7 +39,7 @@
         </mat-form-field>
 
       </mat-card-content></mat-card>
-      
+
         <mat-card  class="white-transparent">
         <mat-card-header class="white-transparent" fxLayout="row" fxLayoutAlign="space-between">
             <p fxFlex class="bold">Statut</p>
@@ -53,19 +50,19 @@
 
         </mat-card-header>
       <mat-card-content class="white-transparent" fxLayout="row" fxLayoutAlign="space-between">
-    
 
 
-          
+
+
 
 <mat-form-field class="gs-mat-field" fxFlex="100">
           <mat-label>Statut</mat-label>
           <mat-select  [formControl]="statusFilter.controls.val">
-            
+
             <mat-option [value]=true> Actif</mat-option>
-            
+
             <mat-option [value]=false> Inactif</mat-option>
-            
+
           </mat-select>
         </mat-form-field>
 
@@ -73,15 +70,15 @@
 
 
       </mat-card-content></mat-card>
-      
+
       </mat-card-content>
       </mat-expansion-panel>
   </div>
 </div>
 <div  *ngIf="customerList.length > 0"  class="example-container mat-elevation-z8">
-  
+
 <mat-table class=""  [dataSource]="dataSource" matSort >
-  
+
     <ng-container matColumnDef="_id">
       <mat-header-cell *matHeaderCellDef mat-sort-header >Id</mat-header-cell>
       <mat-cell *matCellDef="let item" class="mobile-hide">
@@ -89,7 +86,7 @@
 {{item._id}}
       </mat-cell>
     </ng-container>
-  
+
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef mat-sort-header >nom</mat-header-cell>
       <mat-cell *matCellDef="let item" class="mobile-hide">
@@ -97,7 +94,7 @@
 {{item.name}}
       </mat-cell>
     </ng-container>
-  
+
     <ng-container matColumnDef="status">
       <mat-header-cell *matHeaderCellDef mat-sort-header >Statut</mat-header-cell>
       <mat-cell *matCellDef="let item" class="mobile-hide">
@@ -105,7 +102,7 @@
 {{item.status}}
       </mat-cell>
     </ng-container>
-  
+
 <ng-container matColumnDef="actions">
     <mat-header-cell *matHeaderCellDef></mat-header-cell>
     <mat-cell class=""

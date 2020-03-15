@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  main_api: 'http://localhost:5000',
+
+  main_api: 'http://192.168.43.231:5000',
   encrypt_key:'aabbccddee1122334455'
 };
 

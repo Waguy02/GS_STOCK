@@ -119,5 +119,11 @@ router.delete("/:id", (req, res) => {
         )
         .catch(err => res.status(404).json({ success: false }));
 });
+router.get("/stats/count",(req,res)=>{
+    Customer.find().then(data=>res.json(data.length)).catch(err => res.status(404).json(err));
+
+})
+
+
 module.exports = router;
 

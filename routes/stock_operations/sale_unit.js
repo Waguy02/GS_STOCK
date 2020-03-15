@@ -21,6 +21,33 @@ router.get('/:sale', (req, res) => {
         .catch(err => console.log(err));
 });
 
+
+router.get('/product_class/:id', (req, res) => {
+
+    SaleUnit.find({product_class:req.params.id})
+
+        .populate('product_class')
+        .populate('sale')
+        .deepPopulate(['product_class.product','sale.customer'])
+
+        .then(data =>{
+            var result=[];
+            for(var su of data)if(su.sale&&su.sale.status==true)result.push(su);
+            res.json((result))})
+        .catch(err => console.log(err));
+});
+
+
+
+
+
+
+
+
+
+
+
+
 // @route   GET api/sale_unit
 // @desc    Get one sale_unit
 // @access  Public

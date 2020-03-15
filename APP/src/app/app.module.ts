@@ -4,7 +4,7 @@
 
 
 
-import { TestModule } from './test/test.module';
+
 import { GsNavModule } from './gs-nav/gs-nav.module';
 
 import {APP_INITIALIZER, NgModule} from '@angular/core';
@@ -40,6 +40,8 @@ import {SaleModule} from "./stock_operations/sale/sale.module";
 
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import {MatGridListModule} from "@angular/material/grid-list";
 registerLocaleData(localeFr, 'fr');
 
 ;
@@ -49,7 +51,7 @@ registerLocaleData(localeFr, 'fr');
 @NgModule({
 
   declarations: [
-    AppComponent, NavComponent,
+    AppComponent, NavComponent, DashboardComponent,
   ],
   imports: [
 
@@ -59,6 +61,9 @@ registerLocaleData(localeFr, 'fr');
     SaleModule,
     CategoryModule,
     ProductModule,
+
+    MatGridListModule,
+    MatListModule,
 
     CustomerModule,
     ProviderModule,
@@ -79,7 +84,7 @@ ManagerModule,
     AppRoutingModule,
     GsNavModule,
 
-    TestModule,
+
 
 
 
@@ -87,7 +92,7 @@ ManagerModule,
   ],
   providers: [{
     provide: APP_INITIALIZER,
-    useFactory: (configService: ConfigurationService) => () => {configService.loadConfigurations();},
+    useFactory:configFactory,
     deps: [ConfigurationService],
     multi: true
   }],
@@ -95,3 +100,7 @@ ManagerModule,
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+export function configFactory(config: ConfigurationService) {
+  return  () => config.loadConfigurations();
+}

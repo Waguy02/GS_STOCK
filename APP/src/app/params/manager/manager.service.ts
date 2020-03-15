@@ -7,14 +7,20 @@ import { environment } from 'src/environments/environment';
 import * as CryptoJS from 'crypto-js';
 
 const headers = new HttpHeaders().set('Accept', 'application/json');
-@Injectable({
+import {ConfigurationService} from "../../configuration/configuration.service"; @Injectable({
   providedIn: 'root',
 })
 export class ManagerService {
   managerList: Manager[] = [];
-  api = environment.main_api+'/management/manager';
-constructor(private http: HttpClient) {
-  }
+  api='';
+constructor(private http: HttpClient,private configurationService:ConfigurationService) {
+
+
+
+  this.api =this.configurationService.environment.main_api+'/management/manager';
+console.log(this.api);
+
+}
 
 
 

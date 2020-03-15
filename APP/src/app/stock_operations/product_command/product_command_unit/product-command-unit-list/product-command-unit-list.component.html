@@ -25,7 +25,7 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header >Prix d'achat unitaire</mat-header-cell>
       <mat-cell *matCellDef="let item" class="mobile-hide">
          <span class="mobile-label">Prix d'achat unitaire : </span>
-{{item.unit_price|currency:"FCFA":"symbol":'4.0-0':'fr'}}
+{{item.unit_price|currency:"FCFA":"symbol":'1.0-0':'fr'}}
 
       </mat-cell>
     </ng-container>
@@ -35,7 +35,7 @@
     <mat-header-cell *matHeaderCellDef mat-sort-header >Prix Total acheté</mat-header-cell>
     <mat-cell *matCellDef="let item" class="mobile-hide">
       <span class="mobile-label">Prix total acheté : </span>
-      {{item.quantity*item.unit_price|currency:"FCFA":"symbol":'4.0-0':'fr'}}
+      {{item.quantity*item.unit_price|currency:"FCFA":"symbol":'1.0-0':'fr'}}
     </mat-cell>
   </ng-container>
 
@@ -45,6 +45,8 @@
     <mat-cell class="" *matCellDef="let item">
 <div fxLayout="row" fxLayout.md="column" fxLayoutAlign="center" *ngIf="!command._id">
   <button (click)="remove(item)" class="btn btn-danger">Retirer</button>
+
+
 </div>
 
     </mat-cell>
@@ -57,9 +59,9 @@
   <mat-card fxLayout="row" fxLayoutAlign="space-between" *ngIf="command.command_units_datasource.data.length>0">
     <mat-form-field fxFlex="25">
       <mat-label>
-        Montant de de la commande
+        Montant Total
       </mat-label>
-      <input matInput readonly [value]="command.amount|currency:'FCFA'">
+      <input matInput readonly [value]="command.amount|currency:'FCFA':'symbol':'1.0-0':'fr'">
     </mat-form-field>
 
   </mat-card>

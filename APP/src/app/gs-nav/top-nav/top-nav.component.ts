@@ -3,6 +3,7 @@ import {environment} from "../../../environments/environment";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {ParamComponent} from "../param/param.component";
 import {AuthService} from "../../params/manager/auth/auth.service";
+import {ConfigurationService} from "../../configuration/configuration.service";
 
 @Component({
   selector: 'top-nav',
@@ -12,9 +13,9 @@ import {AuthService} from "../../params/manager/auth/auth.service";
 export class TopNavComponent implements OnInit {
   private sidebarVisible = false;
 
-  constructor(public matDialog:MatDialog,public authService:AuthService) {
+  constructor(public matDialog:MatDialog,public authService:AuthService,public confService:ConfigurationService) {
   }
-   app_name:string=environment['app_name'];
+   app_name:string=this.confService.environment['app_name'];
 
   ngOnInit(): void {
   }

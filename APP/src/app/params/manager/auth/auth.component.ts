@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as CryptoJS from 'crypto-js';
 import {FormControl, FormGroup} from "@angular/forms";
 import {AuthService} from "./auth.service";
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
@@ -9,7 +10,7 @@ import {AuthService} from "./auth.service";
 })
 export class AuthComponent implements OnInit {
   feedback: any = {};
-  constructor(private authService:AuthService) { }
+  constructor(private authService:AuthService,private router:Router) { }
 
   ngOnInit() {
   }
@@ -40,7 +41,14 @@ public submit(){
         if(data.length>0) {
 
           this.feedback = {type: 'success', message: 'Connexion réussie'};
-          setTimeout(() => this.authService.active_user = data[0], 500)
+          setTimeout(() => {this.authService.active_user = data[0];this.router.navigateByUrl("/");
+
+
+
+
+
+
+          }, 500)
         }
         else{
           this.feedback = {type: 'warning', message: 'Paramètres invalides'};

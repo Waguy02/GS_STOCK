@@ -101,6 +101,8 @@ this.command.remove(product_command_unit);
 
 
 };
+
+
 }
 export class GsFilter {
 values: {

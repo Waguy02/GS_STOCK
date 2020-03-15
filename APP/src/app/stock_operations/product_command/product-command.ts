@@ -46,7 +46,7 @@ export class ProductCommand {
     this.amount -= product_command_unit.unit_price * product_command_unit.quantity;
   }
 
-  public static calculateAmount(product_command) {
+  public static calculateAmounts(product_command) {
 
 
     product_command.amount = 0;
@@ -57,7 +57,7 @@ export class ProductCommand {
 
   }
 
-  public static calculateAmountPayement(product_command) {
+  public static calculateAmountsPayement(product_command) {
 
 
     product_command.amount_payment = 0;
@@ -72,7 +72,7 @@ export class ProductCommand {
     try {
       command.command_payments.data.push(payment);
 
-      ProductCommand.calculateAmountPayement(command);
+      ProductCommand.calculateAmountsPayement(command);
 
     } catch (err) {
       throw(err);

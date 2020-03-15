@@ -8,17 +8,17 @@
     </li>
 
     <li *ngIf="!class_product._id"  class="breadcrumb-item active">
-      Création d'un class_product
+      Création d'un Stock de produit
     </li>
   </ol>
-  <mat-expansion-panel style="overflow: auto " expanded=true class="card" *ngIf="class_product" fxLayout="column">
+  <mat-expansion-panel style="overflow: auto " expanded=true class="card base-color-light" *ngIf="class_product" fxLayout="column">
     <mat-expansion-panel-header fxFlex="5" class="lead" fxLayout="column" fxLayout="center">
 
 
         <mat-panel-title>
           <p class="h4">
-            <span *ngIf="!class_product._id">Création d'un class_product</span>
-            <span *ngIf="class_product._id">class_product</span>
+            <span *ngIf="!class_product._id">Création d'un Stock de produit</span>
+            <span *ngIf="class_product._id"> Stock de produit  <span class="alert-danger h6" *ngIf="class_product.quantity==0">[ Stock épuisé  ]</span></span>
 
 
           </p>
@@ -26,7 +26,7 @@
 
         <mat-panel-description>
 
-          <p class="h4"> Main Informations </p>
+          <p class="h4"> Informations principales </p>
         </mat-panel-description>
 
 
@@ -53,9 +53,9 @@
 
 
         <div class="form-group">
-          <mat-form-field  class="gs-mat-field" fxFlex="100">
-            <input matInput class="form-control" placeholder="Product" name="Product"
-                   [matAutocomplete]="autoProduct" [formControl]="productInput" (blur)="checkProduct()">
+          <mat-form-field  class="gs-mat-field h4" fxFlex="100">
+            <input matInput class="form-control" placeholder="Produit" name="Product"
+                   [matAutocomplete]="autoProduct" [formControl]="productInput"  [readonly]="class_product._id" (blur)="checkProduct()">
           </mat-form-field>
           <mat-autocomplete #autoProduct="matAutocomplete" [displayWith]="displayProduct"
           (optionSelected)="productClick($event)">
@@ -87,7 +87,7 @@
         <div class="form-group">
           <mat-form-field class="gs-mat-field" fxFlex="100">
 
-            <input matInput class="form-control" placeholder="Prix unitaire" name="UnitPrice"
+            <input matInput class="form-control" placeholder="Prix unitaire de vente" name="UnitPrice"
                    type="number"  [(ngModel)]="class_product.unit_price"    >
 
           </mat-form-field>
@@ -120,21 +120,145 @@
 
 
 
-        <div class="form-group">
-          <mat-form-field class="gs-mat-field" fxFlex="100">
-            <mat-label>Statut</mat-label>
-            <mat-select [(value)]="class_product.status">
-
-              <mat-option [value]=true> Active</mat-option>
-
-              <mat-option [value]=false> Inactive</mat-option>
-
-            </mat-select>
-          </mat-form-field>
-        </div>
-
         <button type="submit" class="btn btn-primary" [disabled]="!editForm.form.valid">Enregistrer</button>
         <button type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
       </form>
     </div>
+  </mat-expansion-panel>
+
+
+  <mat-expansion-panel style="overflow: auto " expanded=true class="card base-color-light" *ngIf="class_product&&class_product._id" fxLayout="column">
+    <mat-expansion-panel-header fxFlex="5" class="lead" fxLayout="column" fxLayout="center">
+
+
+      <mat-panel-title>
+        <p class="h4">
+       <span>Statistiques de vente</span>
+
+        </p>
+      </mat-panel-title>
+
+      <mat-panel-description>
+
+        <p class="h4"> Ventes réalisées et bénéfices </p>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <app-sale-unit *ngIf="sale" [productMode]=true [saleMode]=false [sale]="sale" class="stock_benef"></app-sale-unit>
+
+  <mat-card *ngIf="command_unit" class="stock_benef">
+    <mat-card-header>
+
+      <p class="h4">Commande et bénéfices <span class="alert-danger h6" *ngIf="class_product.quantity==0">[ Stock épuisé  ]</span> </p>
+
+
+    </mat-card-header>
+    <mat-card-content fxLayout="row" fxLayoutAlign="space-between" >
+
+      <mat-form-field>
+        <mat-label>
+          Date de la livraison
+        </mat-label>
+        <input readonly matInput [value]="command_unit.date_delivrance |date">
+
+      </mat-form-field>
+
+
+
+
+
+
+      <mat-form-field>
+        <mat-label>
+         Quantité initiale
+        </mat-label>
+        <input matInput readonly [value]="command_unit.quantity">
+      </mat-form-field>
+
+
+      <mat-form-field>
+        <mat-label>
+          Quantité restante
+        </mat-label>
+        <input matInput readonly [value]="class_product.quantity">
+      </mat-form-field>
+
+
+
+      <mat-form-field>
+        <mat-label>
+          Prix unitaire d'achat
+        </mat-label>
+        <input matInput readonly [value]="command_unit.unit_price|currency:'FCFA':'symbol':'1.0-0':'fr'">
+      </mat-form-field>
+
+
+      <mat-form-field>
+        <mat-label>
+          Montant total de l'achat
+        </mat-label>
+        <input matInput readonly [value]="command_unit.quantity*command_unit.unit_price|currency:'FCFA':'symbol':'1.0-0':'fr'">
+
+      </mat-form-field>
+
+
+
+
+
+
+    </mat-card-content>
+
+    <hr size="20px">
+    <div fxLayout  fxLayoutAlign="space-between" >
+      <mat-form-field fxFlex="30">
+        <mat-label>
+          Bénéfices actuels hors crédit
+        </mat-label>
+        <input matInput readonly  [value]="
+        (sale?( sale.paid_amount-(command_unit.quantity-class_product.quantity)*command_unit.unit_price):0)|currency:'FCFA':'symbol':'1.0-0':'fr'">
+
+      </mat-form-field>
+
+
+
+
+      <mat-form-field fxFlex="30">
+        <mat-label>
+          Bénéfices actuels -crédits compris
+        </mat-label>
+        <input matInput readonly  [value]="
+        (sale?( (sale.amount)-(command_unit.quantity-class_product.quantity)*command_unit.unit_price):0)|currency:'FCFA':'symbol':'1.0-0':'fr'">
+
+      </mat-form-field>
+
+
+
+
+
+      <mat-form-field fxFlex="30">
+        <mat-label>
+          Bénéfices prévisionnels Supplémentaires
+        </mat-label>
+        <input matInput readonly [value]="
+        ((class_product.quantity)*class_product.unit_price-(class_product.quantity)*command_unit.unit_price)|currency:'FCFA':'symbol':'1.0-0':'fr'" >
+
+      </mat-form-field>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+  </mat-card>
+
+
+
+
   </mat-expansion-panel>

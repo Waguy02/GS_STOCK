@@ -29,10 +29,13 @@ export class SaleUnitListComponent implements OnInit {
 
   print_mode:boolean=false;
 
+  @Input() productMode=false;
+  @Input() saleMode=true;
+
 
   dataSource: MatTableDataSource<SaleUnit>;
   feedback: any = {};
-  displayedColumns: string[] = [ 'product',  'quantity', 'unit_price', 'total','actions'];
+  displayedColumns: string[] = [ 'quantity', 'unit_price', 'total','actions'];
   server_processing = false;
 
   filteredValues: any;
@@ -71,9 +74,15 @@ export class SaleUnitListComponent implements OnInit {
   ) {
 
 
-
   }
   ngOnInit(){
+
+    //initifalize table visible columns ;
+
+
+    if(this.saleMode)this.displayedColumns=['product'].concat(this.displayedColumns);
+    if(this.productMode)this.displayedColumns=['date','customer','payment_status',].concat(this.displayedColumns);
+
 
     this.initData();
     this.initFilters()

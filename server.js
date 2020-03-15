@@ -44,3 +44,4 @@ app.use('/management/manager',require('./routes/management/manager'));
   app.listen(port,host, () => console.log(`Server started on port ${port}  and host ${host}`));
 
 
+

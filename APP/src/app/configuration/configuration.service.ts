@@ -2,10 +2,11 @@
 
 
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHandler} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {shareReplay} from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import {environment} from "../../environments/environment";
+
 interface Configuration {
   resourceServerA: string;
   resourceServerB: string;
@@ -18,11 +19,23 @@ export class ConfigurationService {
   private readonly CONFIG_URL = 'assets/config/config.json';
   private configuration$: Observable<Configuration>;
 
+
+  public  environment:any={};
+
+
+
+
+
   constructor(private http: HttpClient) {
+
+
+
+
   }
 
 
-  public loadConfigFiles() {
+
+  public async loadConfigFiles() {
     if (!this.configuration$) {
       this.configuration$ = this.http.get<Configuration>(this.CONFIG_URL).pipe(
 
@@ -34,16 +47,24 @@ export class ConfigurationService {
   }
 
   public  async loadConfigurations() {
-    const data= await  this.loadConfigFiles();
-    this.parseConfigurationApis(data);this.parseConfigurationMain(data);
-    console.log('fin de lecture');
+
+    let promise: Promise<any> = new Promise(async (resolve: any) => {
+      const data= await  this.loadConfigFiles();
+      this.parseConfigurationApis(data);this.parseConfigurationMain(data);
+      resolve(this.environment);
+    });
+    return promise;
+
+
+
 
   }
 
   public parseConfigurationMain(data) {
     for (const key in data.main) {
 
-      environment[key] = data.main[key];
+      this.environment[key] = data.main[key];
+
     }
 
 
@@ -53,7 +74,7 @@ export class ConfigurationService {
   public parseConfigurationApis(data): any {
 
       for (const key in data.api_roots) {
-      environment[key] = data.api_roots[key];
+      this.environment[key] = data.api_roots[key];
     }
 
 
@@ -65,3 +86,4 @@ export class ConfigurationService {
 
 
 }
+

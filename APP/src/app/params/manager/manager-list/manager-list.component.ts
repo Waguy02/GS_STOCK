@@ -19,7 +19,7 @@ selectedManager: Manager;
 @ViewChild(MatSort,null) sort: MatSort;
 dataSource: MatTableDataSource<Manager>;
  feedback: any = {};
- displayedColumns: string[] = ['_id','name','status','actions'];
+ displayedColumns: string[] = ['_id','name','actions'];
  server_processing:boolean=false;
 
   nameFilter:GsFilter;

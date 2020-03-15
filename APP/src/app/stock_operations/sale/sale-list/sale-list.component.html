@@ -1,20 +1,20 @@
 
 <ol class="breadcrumb float-right">
-  <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+  <li class="breadcrumb-item"><a routerLink="/">Accueil</a></li>
   <li class="breadcrumb-item active">Ventes de produits</li>
 </ol>
 <div class="card">
   <div class="content">
-    <a [routerLink]="['../sales', 'new' ]" class="btn btn-default">Nouveau</a>
+    <a [routerLink]="['../sales', 'new' ]" class="btn btn-default">Nouvelle vente</a>
     <hr>
-    <mat-expansion-panel style="overflow: auto "class="white-transparent" style="padding :2px" expanded="true">
+    <mat-expansion-panel style="overflow: auto "class="white-transparent filters_box" style="padding :2px" expanded="false">
       <mat-expansion-panel-header class="header">
         <p class="lead strong">
           Filtres de recherches
         </p>
         <hr>
-      </mat-expansion-panel-header>
-      <mat-card-content class="bg-transparent" fxLayout="row" fxLayoutGap="18px" fxLayoutAlign="flex-start" fxLayout.xs="column" fxLayoutAlign.xs="flex-start"  fxLayout="row" style="overflow:auto">
+</mat-expansion-panel-header>
+<mat-card-content class="bg-transparent " fxLayout="row" fxLayoutGap="18px" fxLayoutAlign="flex-start" fxLayout.xs="column" fxLayoutAlign.xs="flex-start"  fxLayout="row" style="overflow:auto">
 
         <mat-card  class="white-transparent">
           <mat-card-header class="white-transparent" fxLayout="row" fxLayoutAlign="space-between">
@@ -61,17 +61,17 @@
           <mat-card-content class="white-transparent" fxLayout="row" fxLayoutAlign="space-between">
 
             <mat-form-field fxFlex="30">
-              <input matInput [matDatepicker]="dpdate_finalizingMin" placeholder="latest" [formControl]="date_finalizingFilter.controls.min" name="DateFinalizing" >
+              <input matInput [matDatepicker]="dpdate_finalizingMin" placeholder="Du" [formControl]="date_finalizingFilter.controls.min" name="DateFinalizing" >
               <mat-datepicker-toggle matSuffix [for]="dpdate_finalizingMin"></mat-datepicker-toggle>
               <mat-datepicker touchUi="true" #dpdate_finalizingMin></mat-datepicker>
             </mat-form-field>
             <mat-form-field fxFlex="30">
-              <input matInput [matDatepicker]="dpdate_finalizingVal" placeholder="val" [formControl]="date_finalizingFilter.controls.val" name="DateFinalizing" >
+              <input matInput [matDatepicker]="dpdate_finalizingVal" placeholder="exact" [formControl]="date_finalizingFilter.controls.val" name="DateFinalizing" >
               <mat-datepicker-toggle matSuffix [for]="dpdate_finalizingVal"></mat-datepicker-toggle>
               <mat-datepicker touchUi="true" #dpdate_finalizingVal></mat-datepicker>
             </mat-form-field>
             <mat-form-field fxFlex="30">
-              <input matInput [matDatepicker]="dpdate_finalizingMax" placeholder="latest" [formControl]="date_finalizingFilter.controls.max" name="DateFinalizing" >
+              <input matInput [matDatepicker]="dpdate_finalizingMax" placeholder="Au  " [formControl]="date_finalizingFilter.controls.max" name="DateFinalizing" >
               <mat-datepicker-toggle matSuffix [for]="dpdate_finalizingMax"></mat-datepicker-toggle>
               <mat-datepicker touchUi="true" #dpdate_finalizingMax></mat-datepicker>
             </mat-form-field>
@@ -145,17 +145,17 @@
           <mat-card-content class="white-transparent" fxLayout="row" fxLayoutAlign="space-between">
 
             <mat-form-field fxFlex="30">
-              <input matInput [matDatepicker]="dpdate_initiatingMin" placeholder="latest" [formControl]="date_initiatingFilter.controls.min" name="DateFinalizing" >
+              <input matInput [matDatepicker]="dpdate_initiatingMin" placeholder="Du" [formControl]="date_initiatingFilter.controls.min" name="DateFinalizing" >
               <mat-datepicker-toggle matSuffix [for]="dpdate_initiatingMin"></mat-datepicker-toggle>
               <mat-datepicker touchUi="true" #dpdate_initiatingMin></mat-datepicker>
             </mat-form-field>
             <mat-form-field fxFlex="30">
-              <input matInput [matDatepicker]="dpdate_initiatingVal" placeholder="val" [formControl]="date_initiatingFilter.controls.val" name="DateFinalizing" >
+              <input matInput [matDatepicker]="dpdate_initiatingVal" placeholder="exact" [formControl]="date_initiatingFilter.controls.val" name="DateFinalizing" >
               <mat-datepicker-toggle matSuffix [for]="dpdate_initiatingVal"></mat-datepicker-toggle>
               <mat-datepicker touchUi="true" #dpdate_initiatingVal></mat-datepicker>
             </mat-form-field>
             <mat-form-field fxFlex="30">
-              <input matInput [matDatepicker]="dpdate_initiatingMax" placeholder="latest" [formControl]="date_initiatingFilter.controls.max" name="DateFinalizing" >
+              <input matInput [matDatepicker]="dpdate_initiatingMax" placeholder="Au" [formControl]="date_initiatingFilter.controls.max" name="DateFinalizing" >
               <mat-datepicker-toggle matSuffix [for]="dpdate_initiatingMax"></mat-datepicker-toggle>
               <mat-datepicker touchUi="true" #dpdate_initiatingMax></mat-datepicker>
             </mat-form-field>
@@ -213,12 +213,12 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header >Montant de la vente</mat-header-cell>
       <mat-cell *matCellDef="let item" class="mobile-hide">
         <span class="mobile-label">Montant </span>
-        {{item.amount|currency:"FCFA":"symbol":'4.0-0':'fr'}}
+        {{item.amount|currency:"FCFA":"symbol":'1.0-0':'fr'}}
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="date_finalizing">
-      <mat-header-cell *matHeaderCellDef mat-sort-header >Date de livraison</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header >Date de création</mat-header-cell>
       <mat-cell *matCellDef="let item" class="mobile-hide">
         <span class="mobile-label">Date de création : </span>
         {{item.date_initiating|date}}
@@ -226,7 +226,7 @@
     </ng-container>
 
     <ng-container matColumnDef="date_initiating">
-      <mat-header-cell *matHeaderCellDef mat-sort-header >Date de création</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header >Date de livraison</mat-header-cell>
       <mat-cell *matCellDef="let item" class="mobile-hide">
         <span class="mobile-label">Date de livraison : </span>
         {{item.date_finalizing|date}}
@@ -265,5 +265,15 @@
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
   </mat-table>
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  <mat-card  class="stats" fxLayout="row" fxLayoutAlign="space-between">
+    <div>
+      <span class="lead H5">Nombre de ventes: </span>
+      <span class="H3 lead">{{statService.numeric_datas.length}} </span>
+    </div>
 
+    <div>
+      <span class="lead H5">Montant total  : </span>
+      <span class="H3 lead">{{statService.values.get('sum')|currency:"FCFA":"symbol":'1.0-0':'fr'}} </span>
+    </div>
+  </mat-card>
 </div>

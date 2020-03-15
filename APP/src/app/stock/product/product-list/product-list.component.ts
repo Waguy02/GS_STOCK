@@ -16,7 +16,7 @@ selectedProduct: Product;
 @ViewChild(MatSort,null) sort: MatSort;
 dataSource: MatTableDataSource<Product>;
  feedback: any = {};
- displayedColumns: string[] = ['_id','name','description','category','unit_price','status','actions'];
+ displayedColumns: string[] = ['_id','name','description','category','unit_price','actions'];
  server_processing:boolean=false;
 
   nameFilter:GsFilter;

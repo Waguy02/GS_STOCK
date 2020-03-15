@@ -17,6 +17,7 @@ export class SaleUnit {
   unit_price: number;
   date_delivrance: Date;
   status: boolean;
+  sale:Sale;
   get display() {
     return  'sale_unit_display'; // Remplacer avec la chaine que vous souhaitez afficher
   }

@@ -11,10 +11,12 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import { FormControl } from '@angular/forms';
 const caster=require('angular-crud/gs-cast');
 import {debounceTime, finalize, switchMap, tap} from "rxjs/operators";
+import {StatisticalService} from "../../../tools/statistical.service";
 @Component({
   selector: 'app-class-product',
   styleUrls:['./class-product-list.scss'],
-  templateUrl: 'class-product-list.component.html'
+  templateUrl: 'class-product-list.component.html',
+  providers:[StatisticalService]
 })
 export class ClassProductListComponent implements OnInit {
 filter = new ClassProductFilter(null);
@@ -23,13 +25,14 @@ selectedClassProduct: ClassProduct;
 @ViewChild(MatSort,null) sort: MatSort;
 dataSource: MatTableDataSource<ClassProduct>;
  feedback: any = {};
- displayedColumns: string[] = ['product','label','unit_price','quantity','status','date_intrance','actions'];
+ displayedColumns: string[] = ['product','label','unit_price','quantity','total_price','date_intrance','actions'];
  server_processing:boolean=false;
 
   productFilter:GsFilter;
 
   labelFilter:GsFilter;
 
+  statusFilter:GsFilter;
   filteredValues: any
   ;
 
@@ -57,7 +60,7 @@ dataSource: MatTableDataSource<ClassProduct>;
         this.applyFilter();
       }
       displayProduct(product:Product) {
-        if (product) return product
+        if (product) return product.name;
       }
       configureProductInput(){
         this.productInput=new FormControl();
@@ -80,22 +83,31 @@ dataSource: MatTableDataSource<ClassProduct>;
 
 
   initFilters(){
+    this.statusFilter=new GsFilter();
+    this.statusFilter.controls.val=new FormControl();
+
+
 
 this.labelFilter=new GsFilter();
         this.labelFilter.controls.val=new FormControl();
     this.filteredValues={   product: this.selectedProduct,
-      label:this.labelFilter.values,      }
+      label:this.labelFilter.values,
+      status:this.statusFilter.values,}
+
 
   }
 public applyFilter(){
     this.dataSource.filter = JSON.stringify(this.filteredValues);
+    this.actualizeStat();
   }
 public  enableFiltering() {
 
 
 
+  this.statusFilter.controls.val.valueChanges.subscribe((value) => {this.statusFilter.values.val = value;this.applyFilter();});
 
-        this.labelFilter.controls.val.valueChanges.subscribe((value) => {this.labelFilter.values.val = value;this.applyFilter();});
+
+  this.labelFilter.controls.val.valueChanges.subscribe((value) => {this.labelFilter.values.val = value;this.applyFilter();});
 
 
 
@@ -107,7 +119,7 @@ public  enableFiltering() {
 
         let labelCheck =true
 
-        let statutCheck=class_product.status;
+        let statusCheck=true;
 
 
 
@@ -118,14 +130,19 @@ public  enableFiltering() {
 
 
 
+        if (parsedFilters.status.val!=undefined&&parsedFilters.status.val!=null) {
+          statusCheck =(class_product.status==null||class_product.status==undefined)?false: class_product.status==parsedFilters.status.val;
+        }
 
-              if (parsedFilters.label.val) {
+
+
+        if (parsedFilters.label.val) {
                 labelCheck =!class_product.label?false: class_product.label.toLowerCase().includes(parsedFilters.label.val.toLowerCase());
               }
 
 
 
-return   productCheck&&labelCheck&&statutCheck&&true;
+return   productCheck&&labelCheck&&statusCheck&&true;
      }
 }
 
@@ -134,9 +151,17 @@ get class_productList(): ClassProduct[] {
   }
 constructor(private class_productService: ClassProductService,
    private productService: ProductService,
+            private statService:StatisticalService
 ) {
 }
-ngOnInit() {
+
+  public actualizeStat(){
+    this.statService.setDatas(this.dataSource.filteredData);
+    this.statService.computeProductSum('unit_price','quantity');
+  }
+
+
+  ngOnInit() {
 this.initFilters();
 
       this.configureProductInput();

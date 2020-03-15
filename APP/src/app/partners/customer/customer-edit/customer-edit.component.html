@@ -8,17 +8,17 @@
   </li>
 
   <li *ngIf="!customer._id"  class="breadcrumb-item active">
-    Création d'un customer
+    Création d'un client
   </li>
 </ol>
-<mat-expansion-panel style="overflow: auto " expanded=true class="card" *ngIf="customer" fxLayout="column">
+<mat-expansion-panel style="overflow: auto " expanded=true class="card base-color-light" *ngIf="customer" fxLayout="column">
   <mat-expansion-panel-header fxFlex="5" class="lead" fxLayout="column" fxLayout="center">
 
 
       <mat-panel-title>
         <p class="h4">
-          <span *ngIf="!customer._id">Création d'un customer</span>
-          <span *ngIf="customer._id">customer</span>
+          <span *ngIf="!customer._id">Création d'un client</span>
+          <span *ngIf="customer._id">Client</span>
 
 
         </p>
@@ -26,7 +26,7 @@
 
       <mat-panel-description>
 
-        <p class="h4"> Main Informations </p>
+
       </mat-panel-description>
 
 

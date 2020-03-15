@@ -14,6 +14,7 @@
   product_class: ClassProduct=new ClassProduct();
   quantity: number;
   unit_price: number;
+  unit_sale_price:number;
   date_delivrance: Date;
   status: boolean;
 get display() {

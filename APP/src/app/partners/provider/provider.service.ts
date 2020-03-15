@@ -5,12 +5,17 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 const headers = new HttpHeaders().set('Accept', 'application/json');
-@Injectable()
+import {ConfigurationService} from "../../configuration/configuration.service"; @Injectable()
 export class ProviderService {
   providerList: Provider[] = [];
-  api = environment.main_api+'/partners/provider';
-constructor(private http: HttpClient) {
-  }
+
+  api='';
+constructor(private http: HttpClient,private configurationService:ConfigurationService) {
+
+  this.api = this.configurationService.environment.main_api+'/partners/provider';
+  console.log(this.configurationService.environment)
+
+}
 findById(id: string): Observable<Provider> {
     const url = `${this.api}/${id}`;
     const params = { _id: id };
@@ -58,5 +63,12 @@ delete(entity: Provider): Observable<Provider> {
       return this.http.delete<Provider>(url, {headers, params});
     }
     return null;
+
+}
+
+  count():Observable<number>{
+    let url=`${this.api}/stats/count`;
+    return this.http.get<number>(url,{headers})
+
   }
 }

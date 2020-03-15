@@ -6,4 +6,5 @@ export class ClassProductFilter {
       this.product=value;
       this.label=value;
     }
+    status=undefined;
 }

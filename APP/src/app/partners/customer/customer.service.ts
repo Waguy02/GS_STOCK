@@ -5,12 +5,16 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 const headers = new HttpHeaders().set('Accept', 'application/json');
+import {ConfigurationService} from "../../configuration/configuration.service";
 @Injectable()
 export class CustomerService {
   customerList: Customer[] = [];
-  api = environment.main_api+'/partners/customer';
-constructor(private http: HttpClient) {
-  }
+  api='';
+constructor(private http: HttpClient,private configurationService:ConfigurationService) {
+  this.api = this.configurationService.environment.main_api+'/partners/customer';
+  console.log(this.configurationService.environment)
+
+}
 findById(id: string): Observable<Customer> {
     const url = `${this.api}/${id}`;
     const params = { _id: id };
@@ -58,5 +62,11 @@ delete(entity: Customer): Observable<Customer> {
       return this.http.delete<Customer>(url, {headers, params});
     }
     return null;
+  }
+
+  count():Observable<number>{
+  let url=`${this.api}/stats/count`;
+  return this.http.get<number>(url,{headers})
+
   }
 }

@@ -8,13 +8,19 @@ import {SaleUnitService} from "./sale_unit/sale-unit.service";
 import {ClassProductService} from "../../stock/class_product/class-product.service";
 import {ManagerService} from "../../params/manager/manager.service";
 import {AuthService} from "../../params/manager/auth/auth.service";
+import {ProductCommand} from "../product_command/product-command";
 const headers = new HttpHeaders().set('Accept', 'application/json');
-@Injectable()
+import {ConfigurationService} from "../../configuration/configuration.service"; @Injectable()
 export class SaleService {
   saleList: Sale[] = [];
-  api = environment.main_api+'/stock_operations/sale';
-  constructor(private http: HttpClient,private pcu_service:SaleUnitService,stock_service:ClassProductService,private authService:AuthService) {
+  api;
+  constructor(private http: HttpClient,private configurationService:ConfigurationService,private pcu_service:SaleUnitService,stock_service:ClassProductService,private authService:AuthService) {
+    this.api = this.configurationService.environment.main_api+'/stock_operations/sale';
+    console.log(this.configurationService.environment)
+
+
   }
+
   findById(id: string): Observable<Sale> {
     const url = `${this.api}/${id}`;
     const params = { _id: id };
@@ -51,7 +57,7 @@ export class SaleService {
     entity.date_initiating=new Date();
     entity.sale_payments=null;
 
-    console.log(entity);
+    ;
 
     let params = new HttpParams();
     let url = '';
@@ -77,7 +83,7 @@ export class SaleService {
     entity.date_initiating=new Date();
     entity.sale_payments=null;
     entity.payment_status=true;
-    console.log(entity);
+    ;
 
     let params = new HttpParams();
     let url = '';
@@ -101,5 +107,18 @@ export class SaleService {
       return this.http.delete<Sale>(url, {headers, params});
     }
     return null;
+  }
+
+
+
+  load_on_comming(){
+    var url = `${this.api}/stats/count_oncomming`;
+    return this.http.get(url, {headers});
+  }
+
+
+  load_last():Observable<Sale>{
+    var url = `${this.api}/stats/last`;
+    return this.http.get<Sale>(url, {headers});
   }
 }

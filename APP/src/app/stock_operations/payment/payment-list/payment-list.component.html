@@ -19,7 +19,7 @@
     <mat-header-cell *matHeaderCellDef mat-sort-header >Montant</mat-header-cell>
     <mat-cell *matCellDef="let item" class="mobile-hide">
       <span class="mobile-label">Montant: </span>
-      {{item.amount|currency:'FCFA'}}
+      {{item.amount|currency:"FCFA":"symbol":'1.0-0':'fr'}}
     </mat-cell>
   </ng-container>
 
@@ -69,14 +69,14 @@
 
 
 </div>
-  <mat-card fxLayout="row" fxLayoutAlign="space-between" *ngIf="(command&&command.command_units_datasource.data.length>0)||(sale&&sale.sale_units_datasource.data.length>0)">
+  <mat-card fxLayout="row" class="base-color" fxLayoutAlign="space-between" *ngIf="(command&&command.command_units_datasource.data.length>0)||(sale&&sale.sale_units_datasource.data.length>0)">
     <mat-form-field fxFlex="25">
       <mat-label>
-       Total des Versements
+       Total des versements
       </mat-label>
-      <input *ngIf="command" matInput readonly [value]="command.amount_payment|currency:'FCFA'">
+      <input *ngIf="command" class="bold" matInput readonly [value]="command.amount_payment|currency:'FCFA':'symbol':'1.0-0':'fr'">
 
-      <input *ngIf="sale" matInput readonly [value]="sale.amount_payment|currency:'FCFA'">
+      <input class="bold" *ngIf="sale" matInput readonly [value]="sale.amount_payment|currency:'FCFA':'symbol':'1.0-0':'fr'">
     </mat-form-field>
 
 
@@ -84,8 +84,8 @@
       <mat-label>
         Reste à payer
       </mat-label>
-      <input matInput readonly *ngIf="command" [value]="-command.amount_payment+command.amount|currency:'FCFA'">
-      <input matInput readonly *ngIf="sale" [value]="-sale.amount_payment+sale.amount|currency:'FCFA'">
+      <input matInput readonly *ngIf="command" [value]="-command.amount_payment+command.amount|currency:'FCFA':'symbol':'1.0-0':'fr'">
+      <input matInput readonly *ngIf="sale" [value]="-sale.amount_payment+sale.amount|currency:'FCFA':'symbol':'1.0-0':'fr'">
     </mat-form-field>
 
   </mat-card>

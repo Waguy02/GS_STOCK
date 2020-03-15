@@ -8,17 +8,17 @@
   </li>
 
   <li *ngIf="!provider._id"  class="breadcrumb-item active">
-    Création d'un provider
+    Création d'un Fournisseur
   </li>
 </ol>
-<mat-expansion-panel style="overflow: auto " expanded=true class="card" *ngIf="provider" fxLayout="column">
+<mat-expansion-panel style="overflow: auto " expanded=true class="card base-color-light" *ngIf="provider" fxLayout="column">
   <mat-expansion-panel-header fxFlex="5" class="lead" fxLayout="column" fxLayout="center">
 
 
       <mat-panel-title>
         <p class="h4">
-          <span *ngIf="!provider._id">Création d'un provider</span>
-          <span *ngIf="provider._id">provider</span>
+          <span *ngIf="!provider._id">Création d'un fournisseur</span>
+          <span *ngIf="provider._id">Fournisseur</span>
 
 
         </p>
@@ -26,7 +26,7 @@
 
       <mat-panel-description>
 
-        <p class="h4"> Main Informations </p>
+
       </mat-panel-description>
 
 

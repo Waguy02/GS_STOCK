@@ -11,11 +11,13 @@ import {AuthService} from "../../params/manager/auth/auth.service";
 
 
 const headers = new HttpHeaders().set('Accept', 'application/json');
-@Injectable()
+import {ConfigurationService} from "../../configuration/configuration.service"; @Injectable()
 export class ProductCommandService{
   product_commandList: ProductCommand[] = [];
-  api = environment.main_api + '/stock_operations/product_command';
-  constructor( private http: HttpClient, private pcu_service:ProductCommandUnitService, private stock_service:ClassProductService,private authService:AuthService) {
+  api;
+  constructor( private http: HttpClient,private configurationService:ConfigurationService, private pcu_service:ProductCommandUnitService, private stock_service:ClassProductService,private authService:AuthService) {
+    this.api = this.configurationService.environment.main_api + '/stock_operations/product_command';
+    console.log(this.configurationService.environment)
 
 
   }
@@ -54,7 +56,7 @@ export class ProductCommandService{
     entity.command_units = command.command_units_datasource.data;
     entity.date_initiating = new Date();
     entity.command_payments = null;
-    console.log(entity);
+    ;
     let params = new HttpParams();
     let url = '';
     if (entity._id) {
@@ -76,7 +78,7 @@ export class ProductCommandService{
     entity.date_initiating = new Date();
     entity.command_payments = null;
     entity.payment_status = true;
-    console.log(entity);
+    ;
     let params = new HttpParams();
     let url = '';
     entity.status = true;
@@ -93,5 +95,18 @@ export class ProductCommandService{
       return this.http.delete<ProductCommand>(url, {headers, params});
     }
     return null;
+  }
+
+
+
+  load_on_comming(){
+    var url = `${this.api}/stats/count_oncomming`;
+    return this.http.get(url, {headers});
+  }
+
+
+  load_last():Observable<ProductCommand>{
+    var url = `${this.api}/stats/last`;
+    return this.http.get<ProductCommand>(url, {headers});
   }
 }

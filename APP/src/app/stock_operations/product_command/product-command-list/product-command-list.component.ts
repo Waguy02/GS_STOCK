@@ -10,6 +10,7 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {FormControl} from '@angular/forms';
 import {debounceTime, finalize, switchMap, tap} from "rxjs/operators";
 import {ProductCommandService} from "../product-command.service";
+import {StatisticalService} from "../../../tools/statistical.service";
 
 
 const caster=require('angular-crud/gs-cast');
@@ -17,7 +18,8 @@ const caster=require('angular-crud/gs-cast');
 @Component({
   selector: 'app-product-command',
   styleUrls:['./product-command-list.scss'],
-  templateUrl: 'product-command-list.component.html'
+  templateUrl: 'product-command-list.component.html',
+  providers:[StatisticalService]
 })
 export class ProductCommandListComponent implements OnInit {
 filter = new ProductCommandFilter();
@@ -126,6 +128,7 @@ this.pstatusFilter.controls.val=new FormControl();
   }
 public applyFilter(){
     this.dataSource.filter = JSON.stringify(this.filteredValues);
+    this.actualizeStats();
   }
 public  enableFiltering() {
 
@@ -169,10 +172,9 @@ public  enableFiltering() {
 
           if (parsedFilters.date_finalizing.val) {
               var date0=new Date(parsedFilters.date_finalizing.val),date1=new Date(product_command.date_finalizing);
-
             date_finalizingCheck =!product_command.date_finalizing?false:date0.getFullYear()==date1.getFullYear()&&
             date0.getMonth()==date1.getMonth()
-            &&date0.getDay()==date1.getDay();
+            &&date0.getDate()==date1.getDate();
           } else {
             if (parsedFilters.date_finalizing.min) {
               date_finalizingCheck = date_finalizingCheck && (parsedFilters.date_finalizing.min<= product_command.date_finalizing);
@@ -186,7 +188,7 @@ public  enableFiltering() {
 
           date_initiatingCheck =!product_command.date_initiating?false:date0.getFullYear()==date1.getFullYear()&&
             date0.getMonth()==date1.getMonth()
-            &&date0.getDay()==date1.getDay();
+            &&date0.getDate()==date1.getDate();
         } else {
           if (parsedFilters.date_initiating.min) {
             date_initiatingCheck = date_initiatingCheck && (parsedFilters.date_initiating.min<= product_command.date_initiating);
@@ -219,8 +221,13 @@ get product_commandList(): ProductCommand[] {
   }
 constructor(private product_commandService: ProductCommandService,
    private providerService: ProviderService,
+    private statService:StatisticalService
 ) {
+        this.configureAmountStatService();
 }
+
+
+
 ngOnInit() {
 this.initFilters();
 
@@ -231,10 +238,29 @@ this.initFilters();
 ngAfterViewInit() {
     this.search();
   }
+
+
+  public configureAmountStatService(){
+
+
+
+  }
+
+
+public actualizeStats (){
+
+          this.statService.setDatas(this.dataSource.filteredData);
+
+          this.statService.computeSum('amount');
+}
+
+
+
 search(): void {
     this.product_commandService.load(this.filter).then((data)=>{
 setTimeout( ()=>{
           this.dataSource=new MatTableDataSource<ProductCommand>(this.product_commandService.product_commandList);
+          this.actualizeStats();
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
           this.enableFiltering();
@@ -258,6 +284,23 @@ delete(product_command: ProductCommand): void {
         }
       );
     }
+  }
+
+  livrate(product_command:ProductCommand):void{
+    if(!confirm("Voulez vous vraiment effectuer la livraison de cette commande maintenant? "))return;
+    this.product_commandService.save(product_command).subscribe(
+      pc => {
+        product_command=pc;
+        this.actualizeStats();
+        alert("Livraison effectuée avec succès");
+
+      },
+      err => {
+        product_command.status=false;
+        alert("Erreur lors de livraison de la commande")
+
+      }
+    );
   }
 }
 export class GsFilter{

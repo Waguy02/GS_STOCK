@@ -12,7 +12,7 @@ export class ProductCommandPrintComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<ProductCommandPrintComponent>,
               @Inject(MAT_DIALOG_DATA) public data:any
               ) {
-      console.log(data);
+
 
     this.command=data.command;
   }

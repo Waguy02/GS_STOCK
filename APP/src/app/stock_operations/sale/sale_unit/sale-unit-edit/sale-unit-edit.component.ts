@@ -75,7 +75,7 @@ export class SaleUnitEditComponent implements OnInit {
     this.sale_unit.product_class=this.selectedProduct;
   }
   displayProduct(product:ClassProduct) {
-    if (product) return product.product.name;
+    if (product) return product.product.name+"   "+product.quantity+" restant(s)";
   }
   configureProductInput(){
     this.productInput=new FormControl();
@@ -85,6 +85,7 @@ export class SaleUnitEditComponent implements OnInit {
         tap(() => {this.isLoadingProduct= true;}),
         switchMap(value => {
           let filter=new ClassProductFilter(value);
+          filter.status=true;
           if(value) {
             filter.product = value.toString();
             filter.label = value.toString();

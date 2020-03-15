@@ -16,16 +16,25 @@ router.get('/', (req, res) => {
 
     var product_name=req.query.product;
     var label=req.query.label;
+    var status=req.query.status;
 
     ProductClass.find()
         .populate('product')
         .then(data => {
             var result=[];
 
+            var checkStatus=typeof (checkStatus)=="boolean";
+
+
                 for(var product_class of data){
 
+                    if(checkStatus&&product_class.status!=status)continue;
+
+
                     if((product_class.product.name&&product_class.product.name.toLowerCase().includes(product_name.toLowerCase()))
-                        ||(product_class.label&&product_class.label.toLowerCase().contains(label.toLowerCase()))) {
+                        ||(product_class.label&&product_class.label.toLowerCase().contains(label.toLowerCase()))
+                    )
+                    {
                             //console.log(product_class);
                         result.push(product_class)
                     }
@@ -36,7 +45,7 @@ router.get('/', (req, res) => {
         .catch(err => console.log(err));
 });
 
-// @route   GET api/product_class
+// @route   GET api/product_cl-ass
 // @desc    Get one product_class
 // @access  Public
 router.get('/:id', (req, res) => {
@@ -146,5 +155,32 @@ router.delete("/:id", (req, res) => {
         )
         .catch(err => res.status(404).json({ success: false }));
 });
+
+
+
+
+router.get("/stats/count",(req,res)=>{
+
+ProductClass.find({status:true}).then(
+    data=>res.json(data.length)
+).catch(err => res.status(404).json({ success: false }));
+
+
+
+
+
+
+
+
+})
+
+
+
+
+
+
+
+
+
 module.exports = router;
 

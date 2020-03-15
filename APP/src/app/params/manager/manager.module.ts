@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -14,6 +14,7 @@ import { MatAutocompleteModule, MatSpinner, MatProgressSpinnerModule, MatInputMo
   MatCardModule,MatFormFieldModule,MatTableModule,MatPaginatorModule,MatSortModule, MatCheckboxModule, MatRadioModule ,MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatExpansionModule} from '@angular/material';
 import Module = WebAssembly.Module;
 import {AuthComponent} from "./auth/auth.component";
+import {ConfigurationService} from "../../configuration/configuration.service";
 @NgModule({
   imports: [
     CommonModule,
@@ -47,7 +48,8 @@ import {AuthComponent} from "./auth/auth.component";
     AuthComponent
 
   ],
-  providers: [ManagerService],
+  providers: [ManagerService,],
+
   bootstrap:[AuthComponent],
   exports: [AuthComponent]
 })

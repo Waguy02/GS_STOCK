@@ -88,7 +88,7 @@ router.post("/", (req, res) => {
                             //Création de la classe de produit.
                             var classProduit = new ProductClass();
                             classProduit.product = unit.product_class.product;
-                            classProduit.unit_price = unit.unit_price;
+                            classProduit.unit_price = unit.unit_sale_price;
                             classProduit.quantity = unit.quantity;
                             classProduit.date_intrance = data.date_finalizing;
                             classProduit.status =false;
@@ -237,5 +237,35 @@ router.delete("/:id", (req, res) => {
         )
         .catch(err => res.status(404).json({ success: false }));
 });
+
+
+router.get("/stats/count_oncomming",(req,res)=>{
+ProductCommand.find({status:false}).
+then(data=>{
+    var result={count:0,amount:0}
+    for( var command of data){
+        result.count++;
+        result.amount+=command.amount;
+    }
+    res.json(result)
+
+}).catch(err =>res.status(404).res.json(err));
+
+
+})
+
+
+router.get("/stats/last",(req,res)=>{
+ProductCommand.find({status:true})
+    .sort({'date_finalizing':-1}).then(data=>
+{
+    res.json(data[0])
+
+
+}).catch(err =>res.status(404).res.json(err))
+
+})
+
+
 module.exports = router;
 

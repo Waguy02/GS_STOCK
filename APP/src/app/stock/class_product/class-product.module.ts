@@ -13,6 +13,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { MatAutocompleteModule, MatSpinner, MatProgressSpinnerModule, MatInputModule,
   MatCardModule,MatFormFieldModule,MatTableModule,MatPaginatorModule,MatSortModule, MatCheckboxModule, MatRadioModule ,MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatExpansionModule} from '@angular/material';
 import Module = WebAssembly.Module;
+import {SaleUnitModule} from "../../stock_operations/sale/sale_unit/sale-unit.module";
 @NgModule({
   imports: [
     CommonModule,
@@ -38,6 +39,7 @@ import Module = WebAssembly.Module;
     MatRadioModule,
     ReactiveFormsModule ,
     FormsModule,
+    SaleUnitModule,
     RouterModule.forChild(CLASS_PRODUCT_ROUTES)
   ],
   declarations: [

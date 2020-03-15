@@ -4,12 +4,18 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+
 const headers = new HttpHeaders().set('Accept', 'application/json');
+
+
+import {ConfigurationService} from "../../configuration/configuration.service";
 @Injectable()
 export class ClassProductService {
   class_productList: ClassProduct[] = [];
-  api = environment.main_api+'/stock/product_class';
-constructor(private http: HttpClient) {
+  api ='';
+constructor(private http: HttpClient,private configurationService:ConfigurationService) {
+  this.api=configurationService.environment.main_api+'/stock/product_class';
+  console.log(this.configurationService.environment)
   }
 findById(id: string): Observable<ClassProduct> {
     const url = `${this.api}/${id}`;
@@ -34,6 +40,7 @@ find(filter: ClassProductFilter): Observable<ClassProduct[]> {
     const params = {
       'product': filter.product,
       'label': filter.label,
+      'status':filter.status,
     };
 
 return this.http.get<ClassProduct[]>(this.api, {params, headers});
@@ -59,5 +66,14 @@ delete(entity: ClassProduct): Observable<ClassProduct> {
       return this.http.delete<ClassProduct>(url, {headers, params});
     }
     return null;
+  }
+
+
+
+  count():Observable<number>{
+  let     url = `${this.api}/stats/count`;
+
+  return this.http.get<number>(url,{headers});
+
   }
 }

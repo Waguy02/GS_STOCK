@@ -1,5 +1,5 @@
 
 
-{"api_roots": {"main_api":"http://localhost:5000"}, "main": {"app_name": "ODICAM"}}
+{"api_roots": {"main_api":"http://127.0.0.1:5000"}, "main": {"app_name": "ODICAM"}}
 
 
