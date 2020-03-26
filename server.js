@@ -48,7 +48,7 @@ app.use('/management/manager',require('./routes/management/manager'));
 var process=require("process");
   const port = process.env.PORT||5000;
 
-  const host= argv.host||'127.0.0.1';
+  const host= argv.host||'0.0.0.0';
   app.listen(port,host, () => console.log(`Server started on port ${port}  and host ${host}`));
 
 
