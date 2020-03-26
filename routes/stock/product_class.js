@@ -16,15 +16,18 @@ router.get('/', (req, res) => {
 
     var product_name=req.query.product;
     var label=req.query.label;
-    var status=req.query.status;
+    var status=new Boolean(req.query.status);
+
+    var checkStatus=(typeof (status)==typeof(new Boolean()));
+
+
+
+
 
     ProductClass.find()
         .populate('product')
         .then(data => {
             var result=[];
-
-            var checkStatus=typeof (checkStatus)=="boolean";
-
 
                 for(var product_class of data){
 

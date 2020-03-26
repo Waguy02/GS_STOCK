@@ -161,32 +161,40 @@ router.put("/:id", (req, res) => {
                     SaleUnit.find({"sale":c_id}).
                     populate('product_class').then
                     (
-                        pcus => {
+                    async function(pcus) {
                             for (var pcu of pcus) {
 
 
                                 //Modification de la quantité
+                                let current_pcu_qte=pcu.quantity;
+                                ProductClass.findById(pcu.product_class._id).then(pc => {
 
-                                    ProductClass.findById(pcu.product_class._id).then(pc => {
 
+                                    pc.quantity =pc.quantity- current_pcu_qte;
 
-                                        pc.quantity-=pcu.quantity;
-
-                                    if (pc.quantity < 0||pc.status==false) {var error=new Error("Vente incorrecte : aboutit à une quantité négative ");res.status(500).json(error);session.abortTransacion();
+                                    if (pc.quantity < 0 || pc.status == false) {
+                                        var error = new Error("Vente incorrecte : aboutit à une quantité négative ");
+                                        res.status(500).json(error);
+                                        session.abortTransacion();
                                     }
-                                        if(pc.quantity==0)pc.status=false
+                                    if (pc.quantity == 0) pc.status = false
                                     pc.save().then(data => {
                                     })
 
-                        }).catch(err=>{throw(err)})
+                                }).catch(err => {
+                                    throw(err)
+                                })
+
+                            }
 
 
                     session.commitTransaction();
 
                     res.json(data);
 
-                } })
+                } )
                 .catch(err => {
+                    console.log(err);
 
                     session.abortTransaction();
                     if(err.kind === 'ObjectId') {

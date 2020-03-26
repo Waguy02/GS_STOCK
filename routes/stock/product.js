@@ -13,10 +13,7 @@ const Product = require('../../models/product');
 // @access  Public
 router.get('/', (req, res) => {
     Product.find(
-        {"name":{"$regex":req.query.name,"$options":"i"},
-    "description":{"$regex":req.query.description    ,"$options":"i"}
-
-        }
+        {"name":{"$regex":req.query.name,"$options":"i"}}
         )
         .populate('category')
         .sort({ date_semis: 1 })
@@ -55,6 +52,23 @@ router.get('/:id', (req, res) => {
 //@desc Create an product
 //@access Public
 router.post("/", (req, res) => {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     const data = new Product({

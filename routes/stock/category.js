@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
     Category.find(
 
         {"name":{"$regex":req.query.name,"$options":"i"},
-            "description":{"$regex":req.query.description    ,"$options":"i"}}
+            }
     )
 
         .sort({ date_semis: 1 })
