@@ -45,6 +45,13 @@ app.use('/stock_operations/sale_unit',require('./routes/stock_operations/sale_un
 app.use('/payment/payment',require('./routes/payment/payment'))
 app.use('/management/manager',require('./routes/management/manager'));
 
+
+app.get('/*', function(req,res) {
+
+  res.sendFile(path.join(__dirname+'/www/index.html'));
+});
+
+
 var process=require("process");
   const port = process.env.PORT||5000;
 
