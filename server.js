@@ -44,7 +44,7 @@ app.use('/stock_operations/sale_unit',require('./routes/stock_operations/sale_un
 
 app.use('/payment/payment',require('./routes/payment/payment'))
 app.use('/management/manager',require('./routes/management/manager'));
-  const port = argv.port||5000;
+  const port = argv.port||1234;
 
   const host= argv.host||'127.0.0.1';
   app.listen(port,host, () => console.log(`Server started on port ${port}  and host ${host}`));
