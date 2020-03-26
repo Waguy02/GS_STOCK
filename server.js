@@ -14,7 +14,9 @@ app.use(express.json());
 //DB config
 const url = require("./config/keys").mongoURI;
 
+console.log("running sucessfully");
 // Connect to Mongodb
+/*
 mongoose
   .connect(url, { useNewUrlParser: true })
   .then(() => console.log("MongoDB Connected..."))
@@ -52,3 +54,4 @@ app.use('/management/manager',require('./routes/management/manager'));
 
 
 
+*/
