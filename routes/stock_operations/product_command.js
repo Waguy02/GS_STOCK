@@ -91,7 +91,7 @@ router.post("/", (req, res) => {
                             classProduit.unit_price = unit.unit_sale_price;
                             classProduit.quantity = unit.quantity;
                             classProduit.date_intrance = data.date_finalizing;
-                            classProduit.status =false;
+                            classProduit.status =null;
                             classProduit.save().then(cl => {
 
 

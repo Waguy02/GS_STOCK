@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
     var label=req.query.label;
     var status=new Boolean(req.query.status);
 
-    var checkStatus=(typeof (status)==typeof(new Boolean()));
+    var checkStatus=req.query.status.toLowerCase()=="false"||req.query.status.toLowerCase()=="true";
 
 
 
@@ -30,12 +30,12 @@ router.get('/', (req, res) => {
             var result=[];
 
                 for(var product_class of data){
-
+                    if(product_class.status==null) continue;
                     if(checkStatus&&product_class.status!=status)continue;
 
 
                     if((product_class.product.name&&product_class.product.name.toLowerCase().includes(product_name.toLowerCase()))
-                        ||(product_class.label&&product_class.label.toLowerCase().contains(label.toLowerCase()))
+                        ||(product_class.label&&product_class.label.toLowerCase().includes(label.toLowerCase()))
                     )
                     {
                             //console.log(product_class);

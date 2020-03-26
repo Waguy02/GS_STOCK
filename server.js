@@ -14,12 +14,18 @@ app.use(express.json());
 //DB config
 const url = require("./config/keys").mongoURI;
 
-// Connect to Mongodb
-mongoose
-  .connect(url, { useNewUrlParser: true })
-  .then(() => console.log("MongoDB Connected..."))
-  .catch(err => console.log(err));
+function connect(){
 
+  console.log("Connecting to database");
+  mongoose
+      .connect(url, { useNewUrlParser: true })
+      .then(() => console.log("MongoDB Connected..."))
+      .catch(err => {console.log(err);console.log("\n Reconnecting");connect()});
+
+}
+
+// Connect to Mongodb
+connect();
 
 // Use Routes
 app.use(cors());

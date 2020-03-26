@@ -5,7 +5,7 @@ var CryptoJS = require("crypto-js");
 // Item Model
 
 const Payment = require('../../models/payment');
-
+const Sale=require('../../models/sale');
 
 
 
@@ -91,6 +91,11 @@ router.post("/", (req, res) => {
     });
     data.save()
         .then(data => {
+            if(data.sale){
+            Sale.findById(data.sale).then(sale=>{sale
+                sale.amount_payment+=data.amount;
+            sale.save().then().catch(err=>console.log(err));
+            });}
             res.json(data);
         }).catch(err => {
             console.log(err);

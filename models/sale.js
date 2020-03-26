@@ -22,6 +22,10 @@ const SaleSchema = new Schema({
     amount:{
         type:"number"
     },
+    amount_payment: {
+        type:"number",
+        default:"0",
+    },
     customer: {
         type: Schema.Types.ObjectId,
         ref: 'Customer',
