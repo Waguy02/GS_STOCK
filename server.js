@@ -46,7 +46,7 @@ app.use('/payment/payment',require('./routes/payment/payment'))
 app.use('/management/manager',require('./routes/management/manager'));
 
 
-app.get('/*', function(req,res) {
+app.get('/app', function(req,res) {
 
   res.sendFile(path.join(__dirname+'/www/index.html'));
 });
