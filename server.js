@@ -14,9 +14,7 @@ app.use(express.json());
 //DB config
 const url = require("./config/keys").mongoURI;
 
-console.log("running sucessfully");
 // Connect to Mongodb
-/*
 mongoose
   .connect(url, { useNewUrlParser: true })
   .then(() => console.log("MongoDB Connected..."))
@@ -25,14 +23,7 @@ mongoose
 
 // Use Routes
 app.use(cors());
-app.get("/",(req,res)=>{
-  res.json("Odicam_server_working");
 
-})
-app.get("/favicon.ico",(req,res)=>{
-
-  res.json("Odicam_server_working");
-})
 app.use('/stock/category',require('./routes/stock/category'));
 app.use('/stock/product',require('./routes/stock/product'));
 app.use('/stock/product_class',require('./routes/stock/product_class'))
@@ -54,4 +45,3 @@ app.use('/management/manager',require('./routes/management/manager'));
 
 
 
-*/
