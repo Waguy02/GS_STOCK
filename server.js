@@ -46,7 +46,7 @@ app.use('/payment/payment',require('./routes/payment/payment'))
 app.use('/management/manager',require('./routes/management/manager'));
 
 
-app.use(express.static(__dirname + '/www/'));
+//app.use(express.static(__dirname + '/www/'));
 
 app.get('/app/*', function(req,res) {
 
