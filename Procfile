@@ -1,1 +1,1 @@
-web : node serverd.js --HOST 192.168.43.231
+web : node server.js
