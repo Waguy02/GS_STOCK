@@ -174,8 +174,11 @@ router.put("/:id", (req, res) => {
 
                                     if (pc.quantity < 0 || pc.status == false) {
                                         var error = new Error("Vente incorrecte : aboutit à une quantité négative ");
+                                        console.log("Erreur de quantité");
+                                        session.abortTransaction();
                                         res.status(500).json(error);
-                                        session.abortTransacion();
+                                        throw (error);
+
                                     }
                                     if (pc.quantity == 0) pc.status = false
                                     pc.save().then(data => {
