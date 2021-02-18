@@ -20,9 +20,9 @@ https://github.com/Waguy02/GS_STOCK
  * https://odicam-server.herokuapp.com/
  * Username : **admin**
  * Password : **admin**
- 
-## Contact 
-  * guywaffo@gmail.Com
+ * email guywaffo@gmail.Com for more details
+
+  
 
 
 
