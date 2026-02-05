@@ -26,3 +26,12 @@
    ```bash
    git clone [https://github.com/Waguy02/GS_STOCK.git](https://github.com/Waguy02/GS_STOCK.git)
    cd GS_STOCK
+2. Start the server:
+
+```bash
+node server.js --HOST 127.0.0.1
+```
+Access the application: Open your browser and navigate to: http://localhost:5000
+
+📧 Contact
+For support, feedback, or further details, please contact: Guy Waffo - guywaffo@gmail.
