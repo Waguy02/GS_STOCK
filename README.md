@@ -1,31 +1,28 @@
- # GS_STOCK Version Beta
-Une application Web de gestion de stock écrite en Angular. Le Backend est un serveur Express et la communication suit le standard REST. 
+# GS_STOCK (Beta Version)
 
+**GS_STOCK** is a professional web-based inventory management system. The application is built using an **Angular** frontend and a **Node.js/Express** backend, utilizing a **RESTful API** for seamless communication.
 
-## Fonctionnalités. 
-* Gestion des produits
-* Gestion des commandes.
-* Vente
-* Statistiques de ventes
-* Gestion des clients/fournisseurs et des comptes utilisateurs
+[Image of MEAN stack architecture diagram]
 
+---
 
-## Utilisation 
-* Minimum requis : Node11++
-* Cloner le dépôt https://github.com/Waguy02/GS_STOCK.git
-* Executer le script "Server.js" : **Node server.js --HOST 127.0.0.1 
-* Accéder à l'adresse : **localhost:5000** dans un navigateur
- 
+## 🚀 Features
 
-## Version de démonstration
- * https://odicam-server.herokuapp.com/
- * Username : **admin**
- * Password : **admin**
- * email guywaffo@gmail.com for more details
+* **Product Management:** Efficiently track items, categories, and stock levels.
+* **Order Management:** Streamline the procurement and fulfillment process.
+* **Sales System:** Integrated point-of-sale functionality for real-time transactions.
+* **Statistics & Analytics:** Data-driven insights into sales performance and trends.
+* **User & Contact Management:** Centralized database for clients, suppliers, and system users.
 
-  
+---
 
+## 🛠 Installation & Usage
 
+### Prerequisites
+* **Node.js:** v11.0.0 or higher
 
-
-
+### Setup
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/Waguy02/GS_STOCK.git](https://github.com/Waguy02/GS_STOCK.git)
+   cd GS_STOCK
