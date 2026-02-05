@@ -1,6 +1,7 @@
 {
   "api_roots": {
-    "main_api": "https://odicam-server.herokuapp.com"
+    
+    "main_api": "http://localhost:5000"
   },
 
   "main": { "app_name": "ODICAM" }
